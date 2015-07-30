@@ -1,0 +1,17 @@
+.fos_user_error {
+  background-color: #F2DEDE;
+  border: 1px solid #EBCCD1;
+  border-radius: 4px;
+  box-sizing: border-box;
+  color: #A94442;
+  padding: 15px; }
+
+.fos_user_success {
+  background-color: #DFF0D8;
+  border: 1px solid #D6E9C6;
+  border-radius: 4px;
+  box-sizing: border-box;
+  color: #3C763D;
+  padding: 15px; }
+
+/*# sourceMappingURL=style.css.map */

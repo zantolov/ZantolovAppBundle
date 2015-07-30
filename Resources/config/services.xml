@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="twig.controller.exception.class">Zantolov\AppBundle\Controller\ExceptionController</parameter>
+    </parameters>
+
+
+    <services>
+        <!-- Import routing for FOSUserBundle -->
+        <service id="zantolov.routing_loader" class="Zantolov\AppBundle\Routing\AdvancedLoader">
+            <tag name="routing.loader"/>
+        </service>
+
+        <!-- Service for persisting locale in session and updating each request -->
+        <service id="app.locale_listener"
+                 class="Zantolov\AppBundle\EventListener\LocaleListener">
+            <argument>%kernel.default_locale%</argument>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="querystring.twig.extension"
+                 class="Zantolov\AppBundle\Twig\Extension\QueryStringExtension">
+            <tag name="twig.extension"/>
+        </service>
+
+        <service id="truncatehtml.twig.extension"
+                 class="Zantolov\AppBundle\Twig\Extension\TruncateHtmlExtension">
+            <tag name="twig.extension"/>
+        </service>
+
+        <service id="fontAwesome.twig.extension"
+                 class="Zantolov\AppBundle\Twig\Extension\FontAwesomeIconsExtension">
+            <tag name="twig.extension"/>
+        </service>
+
+    </services>
+
+
+</container>

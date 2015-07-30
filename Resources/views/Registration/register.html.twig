@@ -1,0 +1,25 @@
+{% extends "ZantolovAppBundle::Layout/fos-user-bundle-layout.html.twig" %}
+
+{% block fos_user_content %}
+
+    <div class="row-centered">
+        <div class="col-md-5 col-centered">
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+
+                <p>
+                    {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}
+                </p>
+                <a href="{{ path('fos_user_security_logout') }}" class="btn btn-danger">
+                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                </a>
+
+            {% else %}
+                <h1>{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</h1>
+
+                {% include "FOSUserBundle:Registration:register_content.html.twig" %}
+            {% endif %}
+
+        </div>
+    </div>
+
+{% endblock fos_user_content %}
