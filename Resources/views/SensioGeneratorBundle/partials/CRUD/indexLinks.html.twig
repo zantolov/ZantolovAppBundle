@@ -1,0 +1,13 @@
+{% if noUlElement is not defined or noUlElement == false %}
+<ul class="list-unstyled">
+    {% endif %}
+
+    <li>
+        <a class="btn btn-primary btn-sm" href="{{ path(entityPrefix ~ 'new') }}">
+            <i class="fa fa-plus"></i> New
+        </a>
+    </li>
+
+    {% if noUlElement is not defined or noUlElement == false %}
+</ul>
+{% endif %}

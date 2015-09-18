@@ -1,0 +1,42 @@
+/**
+{% block phpdoc_method_header %}
+    * Displays a form to edit an existing {{ entity }} entity.
+{% endblock phpdoc_method_header %}
+*
+{% block phpdoc_method_annotations %}
+    {% if 'annotation' == format %}
+        * @Route("/{id}/edit", name="{{ route_name_prefix }}.edit")
+        * @Method("GET")
+        * @Template()
+    {% endif %}
+{% endblock phpdoc_method_annotations %}
+*/
+{% block method_definition %}
+    public function editAction($id)
+{% endblock method_definition %}
+{
+{% block method_body %}
+{% endblock method_body %}
+
+{% block method_return %}
+        return parent::baseEditAction($id);
+{% endblock method_return %}
+}
+
+{% block form %}
+    /**
+    * Creates a form to edit a {{ entity }} entity.
+    *
+    * @param {{ entity_class }} $entity The entity
+    *
+    * @return \Symfony\Component\Form\Form The form
+    */
+    protected function createEditForm($entity)
+    {
+        return parent::createBaseEditForm(
+            $entity,
+            new {{ entity_class }}Type(),
+            $this->generateUrl('{{ route_name_prefix }}.update', array('id' => $entity->getId()))
+        );
+    }
+{% endblock form %}

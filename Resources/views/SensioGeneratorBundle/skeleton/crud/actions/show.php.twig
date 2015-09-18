@@ -1,0 +1,24 @@
+/**
+{% block phpdoc_method_header %}
+    * Finds and displays a {{ entity }} entity.
+{% endblock phpdoc_method_header %}
+*
+{% block phpdoc_method_annotations %}
+    {% if 'annotation' == format %}
+        * @Route("/{id}", name="{{ route_name_prefix }}.show", requirements={"id"="\d+"})
+        * @Method("GET")
+        * @Template()
+    {% endif %}
+{% endblock phpdoc_method_annotations %}
+*/
+{% block method_definition %}
+    public function showAction($id)
+{% endblock method_definition %}
+{
+{% block method_body %}
+{% endblock method_body %}
+
+{% block method_return %}
+    return parent::baseShowAction($id);
+{% endblock method_return %}
+}

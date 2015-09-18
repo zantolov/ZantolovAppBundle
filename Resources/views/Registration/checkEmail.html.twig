@@ -1,0 +1,7 @@
+{% extends "ZantolovAppBundle::Layout/FOSUserBundle/fos-user-bundle.html.twig" %}
+
+{% block title %}MyBeeLine Register{% endblock %}
+
+{% block fos_user_content %}
+    <p class="text-center">{{ 'registration.check_email'|trans({'%email%': user.email}, 'FOSUserBundle') }}</p>
+{% endblock fos_user_content %}

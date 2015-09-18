@@ -1,0 +1,63 @@
+{% extends "ZantolovAppBundle::Layout/html5.html.twig" %}
+
+{% block customStylesheets %}
+    <link href="{{ asset('bundles/zantolovapp/css/datatables/dataTables.bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/zantolovapp/css/select2/select2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/zantolovapp/css/datetime-picker/jquery.datetimepicker.css') }}" rel="stylesheet">
+
+    {{ parent() }}
+
+    <link href="{{ asset('bundles/zantolovapp/css/admin/commonAdmin.css') }}" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,400italic,500,700,900,300italic,500italic,700italic|Roboto+Slab:400,300,700&subset=latin,latin-ext'
+          rel='stylesheet' type='text/css'>
+
+{% endblock %}
+
+
+{% block customJsPlugins -%}
+    {{ parent() }}
+
+    <script src="{{ asset('bundles/zantolovapp/js/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('bundles/zantolovapp/js/datatables/dataTables.bootstrap.js') }}"></script>
+
+    <script src="{{ asset('bundles/zantolovapp/js/select2/select2.min.js') }}"></script>
+    <script src="{{ asset('bundles/zantolovapp/js/datetime-picker/jquery.datetimepicker.js') }}"></script>
+
+    <script>
+        var functions = window.functions || [];
+        functions.push(function (application) {
+            application.initDatatables();
+            application.initDatetimePicker();
+            application.initSelect2();
+            application.initTooltips();
+            application.initSubmitLinksPlugin();
+            application.confirmOnClick();
+        });
+
+    </script>
+{%- endblock %}
+
+
+
+{% block outerBody %}
+
+    {% if disableNavigation is not defined or disableNavigation == false %}
+        <div class="navbar navbar-default navbar-top">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse" id="admin-navbar-collapse-1">
+                    {{ knp_menu_render('main', {'currentClass': 'active', 'template': 'ZantolovAppBundle:Menu:knp_menu.html.twig'}) }}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="container">
+        {% include "ZantolovAppBundle::Layout/partials/flashNotifications.html.twig" with {} %}
+    </div>
+
+    <div class="adminBody">
+        {% block body %}
+        {% endblock %}
+    </div>
+
+{% endblock %}

@@ -1,0 +1,67 @@
+{% block extends %}
+    {{ "{% extends 'ZantolovAppBundle:Layout:appLayout.html.twig' %}" }}
+{% endblock extends %}
+
+{% block body %}
+    {{ "{% block body -%}" }}
+    <h1>{{ entity }} list</h1>
+
+    {% if 'new' in actions %}
+        {{ "{% include 'ZantolovAppBundle:SensioGeneratorBundle:partials/CRUD/indexLinks.html.twig' with {entityPrefix: \"" ~ route_name_prefix ~ ".\"} %}" }}
+    {% endif %}
+
+    <table class="table">
+        <thead>
+        <tr>
+            {%- for field, metadata in fields %}
+
+                <th>{{ field|capitalize }}</th>
+
+            {%- endfor %}
+
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{ '{% for entity in entities %}' }}
+        <tr>
+
+            {%- for field, metadata in fields %}
+                {%- if loop.first and ('show' in actions) %}
+
+                    <td>
+                        <a href="{{ "{{ path('" ~ route_name_prefix ~ ".show', { 'id': entity."~ identifier ~" }) }}" }}">{{ '{{ entity.' ~ field|replace({'_': ''}) ~ ' }}' }}</a>
+                    </td>
+
+                {%- elseif metadata.type in ['date', 'datetime'] %}
+
+                    <td>{{ '{% if entity.' ~ field|replace({'_': ''}) ~ ' %}{{ entity.' ~ field|replace({'_': ''}) ~ '|date(defaultDateTimeFormat) }}{% endif %}' }}</td>
+
+                {%- elseif metadata.type in ['boolean'] %}
+
+                    <td>{{ '{{ entity.' ~ field|replace({'_': ''}) ~ '|fontAwesome() }}' }}</td>
+
+                {%- else %}
+
+                    <td>{{ '{{ entity.' ~ field|replace({'_': ''}) ~ ' }}' }}</td>
+
+                {%- endif %}
+
+                {%- if loop.last %}
+
+                    <td>
+                        {%- include "crud/views/others/actions.html.twig.twig" %}
+                    </td>
+
+                {%- endif %}
+            {%- endfor %}
+
+        </tr>
+        {{ '{% endfor %}' }}
+        </tbody>
+    </table>
+
+    {% if 'new' in actions %}
+        {{ "{% include 'ZantolovAppBundle:SensioGeneratorBundle:partials/CRUD/indexLinks.html.twig' with {entityPrefix: \"" ~ route_name_prefix ~ ".\"} %}" }}    {% endif %}
+    {{ "{% endblock %}" }}
+{% endblock body %}

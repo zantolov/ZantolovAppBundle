@@ -1,0 +1,14 @@
+{% extends "ZantolovAppBundle::Layout/html5.html.twig" %}
+
+{% block outerBody %}
+
+    <div class="container">
+        {% include "ZantolovAppBundle::Layout/partials/flashNotifications.html.twig" with {} %}
+    </div>
+
+    <div class="container">
+        {% block body %}
+        {% endblock %}
+    </div>
+
+{% endblock %}

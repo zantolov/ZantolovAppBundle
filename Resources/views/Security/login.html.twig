@@ -1,0 +1,53 @@
+{% extends "ZantolovAppBundle::Layout/FOSUserBundle/fos-user-bundle.html.twig" %}
+
+{% block fos_user_content %}
+    <div class="row-centered">
+        <div class="col-md-5 col-centered">
+            <h1>{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</h1>
+
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <p>
+                    {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}
+                </p>
+                <a href="{{ path('fos_user_security_logout') }}" class="btn btn-danger">
+                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                </a>
+            {% else %}
+
+                {% if error %}
+                    <div class="alert alert-danger">{{ error|trans({}, 'FOSUserBundle') }}</div>
+                {% endif %}
+
+                <form action="{{ path("fos_user_security_check") }}" method="post">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
+
+                    <div class="form-group">
+                        <label for="username">{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label>
+                        <input type="text" class="form-control" id="username" name="_username"
+                               value="{{ last_username }}"
+                               required="required"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>
+                        <input type="password" class="form-control" id="password" name="_password" required="required"/>
+                    </div>
+
+                    <div class="checkbox">
+                        <label for="remember_me">
+                            <input type="checkbox" id="remember_me" name="_remember_me" value="on"/>
+                            {{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
+                        </label>
+                    </div>
+
+                    <input type="submit" id="_submit" name="_submit" class="btn btn-lg btn-block btn-success"
+                           value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}"/>
+                </form>
+                <hr>
+                <a href="{{ path('fos_user_resetting_request') }}"
+                   class="btn bnt-xs btn-default">{{ 'security.login.reset'|trans({}, 'FOSUserBundle') }}</a>
+                <a href="{{ path('fos_user_registration_register') }}" class="btn bnt-xs btn-default">Register</a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock fos_user_content %}

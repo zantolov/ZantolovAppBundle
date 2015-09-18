@@ -1,0 +1,11 @@
+{% extends "ZantolovAppBundle::Layout/appLayout.html.twig" %}
+
+{% block body %}
+    {{ parent() }}
+
+    <div class="container">
+        {% block fos_user_content %}
+        {% endblock fos_user_content %}
+    </div>
+
+{% endblock %}

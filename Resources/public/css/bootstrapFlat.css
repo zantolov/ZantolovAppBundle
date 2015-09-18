@@ -1,0 +1,38 @@
+body {
+  box-sizing: border-box;
+  border: none; }
+
+.btn {
+  border-radius: 0; }
+
+.form-control {
+  border-radius: 0; }
+
+.no-gutter > [class*='col-'] {
+  padding-right: 0;
+  padding-left: 0; }
+
+ul.nav.nav-tabs {
+  margin-bottom: 20px; }
+
+.selection .select2-selection--multiple,
+.selection .select2-container--default,
+.selection .select2-selection--single {
+  border-radius: 0;
+  padding: 2px 5px;
+  border: 1px solid #CCC;
+  height: 34px; }
+
+.select2-sm,
+.select2-sm + .select2,
+.select2-sm + .select2 .selection,
+.select2-sm + .select2 .selection .select2-selection {
+  height: 30px;
+  padding: 0px; }
+
+.nav-tabs > li.active > a {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0; }
+
+/*# sourceMappingURL=bootstrapFlat.css.map */

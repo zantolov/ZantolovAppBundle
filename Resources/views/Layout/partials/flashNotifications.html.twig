@@ -1,0 +1,14 @@
+{# Notifications #}
+
+    {% set flashes = app.session.flashBag.all %}
+    {% if flashes|length > 0 %}
+        <div class="col-sm-12">
+            {% for type, messages in flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ type }} text-center">
+                        {{ message|trans({}, 'FOSUserBundle') }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    {% endif %}

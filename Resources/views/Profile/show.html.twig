@@ -1,0 +1,17 @@
+{% extends "ZantolovAppBundle::Layout/FOSUserBundle/fos-user-bundle.html.twig" %}
+
+{% block fos_user_content %}
+    <div class="row-centered">
+        <div class="col-md-5 col-centered text-center">
+            <h1>{{ 'profile.title'|trans({}, 'FOSUserBundle') }}</h1>
+            {% include "FOSUserBundle:Profile:show_content.html.twig" %}
+            <hr>
+            <a href="{{ path('fos_user_profile_edit') }}"
+               class="btn bnt-xs btn-default">{{ 'profile.edit_link'|trans({}, 'FOSUserBundle') }}</a>
+            <a href="{{ path('fos_user_change_password') }}"
+               class="btn bnt-xs btn-default">{{ 'profile.password_change_link'|trans({}, 'FOSUserBundle') }}</a>
+
+        </div>
+
+    </div>
+{% endblock fos_user_content %}

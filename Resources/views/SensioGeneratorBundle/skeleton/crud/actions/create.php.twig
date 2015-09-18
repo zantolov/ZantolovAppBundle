@@ -1,0 +1,51 @@
+/**
+{% block phpdoc_method_header %}
+    * Creates a new {{ entity }} entity.
+{% endblock phpdoc_method_header %}
+*
+{% block phpdoc_method_annotations %}
+    {% if 'annotation' == format %}
+        * @Route("/", name="{{ route_name_prefix }}.create")
+        * @Method("POST")
+        * @Template("{{ bundle }}:{{ entity }}:new.html.twig")
+    {% endif %}
+{% endblock phpdoc_method_annotations %}
+*/
+{% block method_definition %}
+    public function createAction(Request $request)
+{% endblock method_definition %}
+{
+{% block method_body %}
+    return parent::baseCreateAction(
+    $request,
+    new {{ entity_class }}(),
+    {% if 'show' in actions -%}
+        '{{ route_name_prefix }}.show'
+    {%- else -%}
+        '{{ route_name_prefix }}'
+    {%- endif %}
+    );
+{% endblock method_body %}
+
+{% block method_return %}
+
+{% endblock method_return %}
+}
+
+{% block form %}
+    /**
+    * Creates a form to create a {{ entity }} entity.
+    *
+    * @param {{ entity_class }} $entity The entity
+    *
+    * @return \Symfony\Component\Form\Form The form
+    */
+    protected function createCreateForm($entity)
+    {
+        return parent::createBaseCreateForm(
+            $entity,
+            new {{ entity_class }}Type(),
+            $this->generateUrl('{{ route_name_prefix }}.create')
+        );
+    }
+{% endblock form %}

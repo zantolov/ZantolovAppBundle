@@ -1,0 +1,4 @@
+twig:
+    globals:
+        title: MyAwesomeSite
+        defaultDateTimeFormat: 'd.m.Y. H:i'

@@ -1,0 +1,67 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="twig.controller.exception.class">Zantolov\AppBundle\Controller\ExceptionController</parameter>
+    </parameters>
+
+
+    <services>
+        <service id="zantolov.app.entity_listener_resolver" class="Zantolov\AppBundle\Doctrine\EntityListenerResolver">
+            <argument type="service" id="service_container"/>
+        </service>
+
+        <!-- Import routing for FOSUserBundle -->
+        <service id="zantolov.routing_loader" class="Zantolov\AppBundle\Routing\AdvancedLoader">
+            <tag name="routing.loader"/>
+        </service>
+
+        <!-- Service for persisting locale in session and updating each request -->
+        <service id="app.locale_listener"
+                 class="Zantolov\AppBundle\EventListener\LocaleListener">
+            <argument>%kernel.default_locale%</argument>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+
+        <service id="zantolov.app.response_listener"
+                 class="Zantolov\AppBundle\EventListener\ResponseListener">
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+
+        <service id="querystring.twig.extension"
+                 class="Zantolov\AppBundle\Twig\Extension\QueryStringExtension">
+            <tag name="twig.extension"/>
+        </service>
+
+        <service id="truncatehtml.twig.extension"
+                 class="Zantolov\AppBundle\Twig\Extension\TruncateHtmlExtension">
+            <tag name="twig.extension"/>
+        </service>
+
+        <service id="fontAwesome.twig.extension"
+                 class="Zantolov\AppBundle\Twig\Extension\FontAwesomeIconsExtension">
+            <tag name="twig.extension"/>
+        </service>
+
+        <service id="zantolov.app.menu_builder" class="Zantolov\AppBundle\Menu\MenuBuilder">
+            <argument type="service" id="knp_menu.factory"/>
+        </service>
+
+        <service id="zantolov.app.main.menu" class="Knp\Menu\MenuItem">
+            <factory service="zantolov.app.menu_builder" method="createMainMenu"/>
+            <argument type="service" id="request_stack"/>
+            <tag name="knp_menu.menu" alias="main"/>
+        </service>
+
+        <service id="zantolov.app.assets" class="Zantolov\AppBundle\Service\AssetsService">
+        </service>
+
+    </services>
+
+
+</container>

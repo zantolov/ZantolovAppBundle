@@ -1,0 +1,14 @@
+<meta charset="utf-8">
+<title>{% block title %}{{ title | default('Site Title') }}{% endblock title %}</title>
+
+
+{% if meta_description is defined and meta_description is not empty %}
+    <meta name="description" content="{{ meta_description }}">
+{% endif %}
+
+{% if meta_author is defined and meta_author is not empty %}
+    <meta name="author" content="{{ meta_author }}">
+{% endif %}
+
+{# Additional meta tags go here #}
+{% block metaTags %}{% endblock %}

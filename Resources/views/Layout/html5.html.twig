@@ -1,0 +1,45 @@
+{# Basic HTML5 template #}
+<!doctype html>
+<html lang="en">
+<head>
+
+    {% include "ZantolovAppBundle::Layout/partials/meta.html.twig" with {} %}
+
+    {% block stylesheets -%}
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <link href="{{ asset('bundles/zantolovapp/css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/zantolovapp/css/centered-columns.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/zantolovapp/css/style.css') }}" rel="stylesheet">
+
+        {% block customStylesheets %}{% endblock %}
+    {%- endblock %}
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+{% block outerBody %}{% endblock outerBody %}
+
+{% block javascripts -%}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="{{ asset('bundles/zantolovapp/js/bootstrap.min.js') }}"></script>
+
+    {% block customJsPlugins %}{% endblock %}
+    <script src="{{ asset('bundles/zantolovapp/js/main.js') }}"></script>
+
+    {# Dynamic load stylesheets and Js from service #}
+    <script>
+        {% for stylesheet in assetsService.getCss() %}
+        loadjscssfile("{{ stylesheet }}", "css");
+        {% endfor %}
+    </script>
+
+    {% for script in assetsService.getJs() %}
+    <script src="{{ script }}"></script>
+    {% endfor %}
+
+{%- endblock %}
+</body>
+</html>

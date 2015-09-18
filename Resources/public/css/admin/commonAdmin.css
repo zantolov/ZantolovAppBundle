@@ -1,0 +1,50 @@
+@import url(../bootstrapFlat.css);
+.dropdown-menu {
+  padding: 0; }
+
+.dropdown li a {
+  padding: 15px 10px; }
+
+body {
+  font-family: "Roboto", Arial, sans-serif; }
+
+.adminBody {
+  font-weight: 300;
+  margin: 0 15px; }
+  .adminBody thead {
+    background: #EEE; }
+    .adminBody thead th {
+      font-weight: 400; }
+      .adminBody thead th.sorting_desc, .adminBody thead th.sorting_asc {
+        font-weight: 600; }
+      .adminBody thead th:last-child {
+        text-align: right; }
+  .adminBody .entityActions {
+    text-align: right;
+    max-width: 150px;
+    min-width: 100px; }
+    .adminBody .entityActions .list-inline {
+      margin: 0; }
+  .adminBody .nav-tabs.nav {
+    margin-bottom: 10px; }
+  .adminBody .nav-tabs > li {
+    display: inline-block;
+    float: none; }
+    .adminBody .nav-tabs > li.crudTitleContainer {
+      float: left; }
+    .adminBody .nav-tabs > li a {
+      padding: 8px; }
+  .adminBody .crudTitle {
+    text-transform: uppercase;
+    font-weight: 100;
+    margin: 0;
+    vertical-align: top;
+    display: inline-block; }
+  .adminBody .dataTables_wrapper {
+    background: #FAFAFA;
+    border: 1px solid #F5F5F5; }
+    .adminBody .dataTables_wrapper .dataTables_filter,
+    .adminBody .dataTables_wrapper .dataTables_length {
+      padding: 10px; }
+
+/*# sourceMappingURL=commonAdmin.css.map */
