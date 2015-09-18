@@ -9,7 +9,7 @@
   "require": {},
   "autoload": {
     "psr-4": {
-      "Zantolov\\AppBundle\\": "src\\AppBundle"
+      "Zantolov\\AppBundle\\": "src"
     }
   }
 }
