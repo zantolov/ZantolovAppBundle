@@ -1,0 +1,15 @@
+{
+  "name": "zantolov/appbundle",
+  "authors": [
+    {
+      "name": "Zoran Antolovic",
+      "email": "zoran.antolovic.os@gmail.com"
+    }
+  ],
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "Zantolov\\AppBundle\\": "src\\AppBundle"
+    }
+  }
+}
