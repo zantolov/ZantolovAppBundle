@@ -4,6 +4,11 @@ twig:
     strict_variables: "%kernel.debug%"
     form:
         resources: ['bootstrap_3_layout.html.twig']
+
+    form_themes:
+                - 'VichUploaderBundle:Form:fields.html.twig'
+                - 'ZantolovMediaBundle:Form:fields.html.twig'
+
     globals:
         assetsService: "@zantolov.app.assets"
         title: MyAwesomeSite
@@ -77,3 +82,25 @@ liip_imagine:
             quality: 75
             filters:
                 thumbnail: { size: [120, 90], mode: outbound }
+
+stof_doctrine_extensions:
+    default_locale: en_US
+    orm:
+        default:
+            timestampable: true
+            softdeleteable: true
+            sluggable: true
+            sortable: true
+
+
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+      default_image:
+          namer:              zantolov.media.vichuploader.namer
+          uri_prefix:         /images/default
+          upload_destination: %kernel.root_dir%/../web/%uploads_dir%/images/default
+          inject_on_load:     false
+          delete_on_update:   true
+          delete_on_remove:   true
