@@ -1,15 +1,28 @@
+{% if ignoreTabs is not defined %}
+    {% set ignoreTabs = [] %}
+{% endif %}
+
 <div class="row">
     <div class="col-md-12">
         <div class="text-right">
+
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
+
                 <li class="crudTitleContainer">
                     <h2 class="crudTitle">{% block entityTitle %}{% endblock %}</h2>
                 </li>
 
                 {% block tabNav %}
-                    <li class="active"><a href="#actions" data-toggle="tab">Actions</a></li>
-                    <li class=""><a href="#filters" data-toggle="tab">Filters</a></li>
+
+                    {% if "actions" not in ignoreTabs %}
+                        <li class="active"><a href="#actions" data-toggle="tab">Actions</a></li>
+                    {% endif %}
+
+                    {% if "filters" not in ignoreTabs %}
+                        <li class=""><a href="#filters" data-toggle="tab">Filters</a></li>
+                    {% endif %}
+
                 {% endblock %}
             </ul>
             <!-- /Nav tabs -->
@@ -17,14 +30,21 @@
             <!-- Tab panes -->
             <div class="tab-content">
                 {% block tabPanels %}
-                    <div role="tabpanel" class="tab-pane active" id="actions">
-                        {% block actionPanel %}
-                        {% endblock %}
-                    </div>
-                    <div role="tabpanel" class="tab-pane" id="filters">
-                        {% block filterPanel %}
-                        {% endblock %}
-                    </div>
+
+                    {% if "actions" not in ignoreTabs %}
+                        <div role="tabpanel" class="tab-pane active" id="actions">
+                            {% block actionPanel %}
+                            {% endblock %}
+                        </div>
+                    {% endif %}
+
+                    {% if "filters" not in ignoreTabs %}
+                        <div role="tabpanel" class="tab-pane" id="filters">
+                            {% block filterPanel %}
+                            {% endblock %}
+                        </div>
+                    {% endif %}
+
                 {% endblock %}
             </div>
             <!-- /Tab panes -->
