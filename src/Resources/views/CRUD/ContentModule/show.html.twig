@@ -1,0 +1,52 @@
+{% extends 'ZantolovAppBundle::baseAdmin.html.twig' %}
+
+    {% block body -%}
+
+        {% embed 'ZantolovAppBundle:Admin/partials:crudHeader.html.twig'  with { ignoreTabs: ["filters"]} %}
+
+            {% block entityTitle %}
+                Content Module
+            {% endblock %}
+
+            {% block actionPanel %}
+                <ul class="list-inline">
+                    <li>
+                        <a class="btn btn-primary btn-sm" href="{{ path('app.content-module') }}">
+                            <i class="fa fa-arrow-left"></i> Back to the list
+                        </a>
+                    </li>
+                    <li>
+                        <a class="btn btn-primary btn-sm"
+                           href="{{ path('app.content-module.edit', { 'id': entity.id }) }}">
+                            <i class="fa fa-edit"></i> Edit
+                        </a>
+                    </li>
+                    <li>{{ form(delete_form) }}</li>
+                </ul>
+            {% endblock %}
+
+        {% endembed %}
+
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <th class="col-sm-2">Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ entity.name }}</td>
+            </tr>
+            <tr>
+            <tr>
+                <th>Active</th>
+                <td>{{ entity.active|fontAwesome() }}</td>
+            </tr>
+            <tr>
+                <th>Body</th>
+                <td>{{ entity.body|raw }}</td>
+            </tr>
+            </tbody>
+        </table>
+
+    {% endblock %}

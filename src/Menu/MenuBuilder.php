@@ -42,6 +42,9 @@ class MenuBuilder extends ContainerAware
 
         $items = array();
 
+        $items[0]['modules'] = $this->factory->createItem('Modules', array('route' => 'app.content-module'))->setAttribute('icon', 'fa fa-plug');
+
+
         /** @var MenuBuilderInterface $menu */
         foreach ($this->menus as $menu) {
             foreach ($menu->createMenu($requestStack) as $menuItem) {
