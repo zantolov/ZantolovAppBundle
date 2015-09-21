@@ -43,6 +43,13 @@ abstract class EntityCrudController extends Controller
         return $this->getManager()->getRepository($this->getEntityClass());
     }
 
+    /**
+     * @param $string
+     * @return String
+     */
+    protected function translate($string){
+        return $this->get('translator')->trans($string);
+    }
 
     /**
      * Returns entity object if found by ID, or throws exception
@@ -54,7 +61,8 @@ abstract class EntityCrudController extends Controller
         $entity = $this->getRepository()->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Entity Not Found');
+            $notFound = $this->translate('Entity Not Found');
+            throw $this->createNotFoundException($notFound);
         }
 
         return $entity;
@@ -90,8 +98,8 @@ abstract class EntityCrudController extends Controller
             'action' => $submitUrl,
             'method' => 'PUT',
         ));
-
-        $form->add('submit', 'submit', array('label' => 'Update', 'attr' => array('class' => 'btn btn-success')));
+        $update = $this->translate('Update');
+        $form->add('submit', 'submit', array('label' => $update, 'attr' => array('class' => 'btn btn-success btn-lg')));
 
         return $form;
     }
@@ -108,7 +116,8 @@ abstract class EntityCrudController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create', 'attr' => array('class' => 'btn btn-success btn-lg')));
+        $create = $this->translate('Create');
+        $form->add('submit', 'submit', array('label' => $create, 'attr' => array('class' => 'btn btn-success btn-lg')));
 
         return $form;
     }
@@ -168,7 +177,8 @@ abstract class EntityCrudController extends Controller
 
         if ($editForm->isValid()) {
             $this->getManager()->flush();
-            $this->get('session')->getFlashBag()->add('success', 'Updated');
+            $updated = $this->translate('Updated');
+            $this->get('session')->getFlashBag()->add('success', $updated);
             return $this->redirect($redirectUrl);
         }
 
@@ -194,7 +204,8 @@ abstract class EntityCrudController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-            $this->get('session')->getFlashBag()->add('success', 'Created');
+            $created = $this->translate('Created');
+            $this->get('session')->getFlashBag()->add('success', $created);
 
             return $this->redirect($this->generateUrl($redirectRouteName, array('id' => $entity->getId())));
         }
@@ -219,7 +230,8 @@ abstract class EntityCrudController extends Controller
             $entity = $this->getEntityById($id);
             $this->getManager()->remove($entity);
             $this->getManager()->flush();
-            $this->get('session')->getFlashBag()->add('success', 'Deleted');
+            $deleted = $this->translate('Deleted');
+            $this->get('session')->getFlashBag()->add('success', $deleted);
         }
 
         return $this->redirect($redirectUrl);
@@ -231,10 +243,12 @@ abstract class EntityCrudController extends Controller
      */
     protected function baseCreateDeleteForm($submitUrl)
     {
+        $delete = $this->translate('Delete');
+        $confirm = $this->translate('Are you sure?');
         return $this->createFormBuilder()
             ->setAction($submitUrl)
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete', 'attr' => array('class' => 'btn btn-danger btn-sm', 'data-confirm' => 'Are you sure?')))
+            ->add('submit', 'submit', array('label' => $delete, 'attr' => array('class' => 'btn btn-danger btn-sm', 'data-confirm' => $confirm)))
             ->getForm();
     }
 
