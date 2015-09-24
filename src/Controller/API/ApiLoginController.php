@@ -32,15 +32,19 @@ class ApiLoginController extends ApiController
     {
         $data = $this->getDataFromRequest($request);
 
-        if (!isset($data['username']) || empty($data['username'])) {
-            return $this->createResponse(array(self::KEY_STATUS => self::STATUS_ERROR, self::KEY_MESSAGE => 'username not provided'));
+        if (
+            (!isset($data['username']) || empty($data['username'])) &&
+            (!isset($data['email']) || empty($data['email']))
+        ) {
+            return $this->createResponse(array(self::KEY_STATUS => self::STATUS_ERROR, self::KEY_MESSAGE => 'username or email not provided'));
         }
 
         if (!isset($data['password']) || empty($data['password'])) {
             return $this->createResponse(array(self::KEY_STATUS => self::STATUS_ERROR, self::KEY_MESSAGE => 'username not provided'));
         }
 
-        $username = $data['username'];
+        $username = @$data['username'];
+        $email = @$data['email'];
         $password = $data['password'];
 
 
@@ -50,7 +54,15 @@ class ApiLoginController extends ApiController
         /** @var EncoderFactory $factory */
         $factory = $this->get('security.encoder_factory');
 
-        $user = $user_manager->findUserBy(array('username' => $username));
+        $findBy = array();
+        if (!empty($email)) {
+            $findBy['email'] = $email;
+        }
+        if (!empty($username)) {
+            $findBy['username'] = $username;
+        }
+        
+        $user = $user_manager->findUserBy($findBy);
         if (empty($user)) {
             return $this->createResponse(array(self::KEY_STATUS => self::STATUS_ERROR, self::KEY_MESSAGE => 'User not found'));
         }
