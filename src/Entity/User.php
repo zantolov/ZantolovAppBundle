@@ -30,12 +30,37 @@ class User extends BaseUser
      */
     protected $groups;
 
+    /**
+     * @ORM\OneToMany(targetEntity="ApiToken", mappedBy="user")
+     */
+    protected $tokens;
+
+    /**
+     * @var ApiToken
+     */
+    protected $activeToken;
 
     public function __construct()
     {
         parent::__construct();
+        $this->tokens = new ArrayCollection();
 
     }
 
+    /**
+     * @return ApiToken
+     */
+    public function getActiveToken()
+    {
+        return $this->activeToken;
+    }
+
+    /**
+     * @param ApiToken $activeToken
+     */
+    public function setActiveToken($activeToken)
+    {
+        $this->activeToken = $activeToken;
+    }
 
 }

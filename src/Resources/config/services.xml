@@ -61,6 +61,23 @@
         <service id="zantolov.app.assets" class="Zantolov\AppBundle\Service\AssetsService">
         </service>
 
+
+        <service id="app.token_user_provider"
+                 class="Zantolov\AppBundle\Security\TokenUserProvider">
+            <argument type="service" id="service_container"/>
+        </service>
+
+
+        <service id="app.token_user_authenticator"
+                 class="Zantolov\AppBundle\Security\TokenAuthenticator">
+            <argument type="service" id="app.token_user_provider"/>
+        </service>
+
+        <service id="kernel.listener.exception_listener"
+                 class="Zantolov\AppBundle\EventListener\ExceptionListener">
+            <tag name="kernel.event_listener" event="kernel.exception" method="onKernelException"/>
+        </service>
+
     </services>
 
 

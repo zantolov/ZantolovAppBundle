@@ -1,0 +1,50 @@
+{% extends 'ZantolovAppBundle::baseAdmin.html.twig' %}
+
+    {% block body -%}
+
+        {% embed 'ZantolovAppBundle:Admin/partials:crudHeader.html.twig'  with { ignoreTabs: ["filters"]} %}
+            {% block entityTitle %}
+                Users
+            {% endblock %}
+            {% block actionPanel %}
+                {% include 'ZantolovAppBundle:SensioGeneratorBundle:partials/CRUD/indexLinks.html.twig' with {entityPrefix: "app.users."} %}
+            {% endblock %}
+        {% endembed %}
+
+
+        <table class="table dataTable table-hover">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Active</th>
+                <th class="col-sm-1">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for entity in entities %}
+                <tr>
+                    <td>
+                        <a href="{{ path('app.content-module.show', { 'id': entity.id }) }}">{{ entity.id }}</a>
+                    </td>
+                    <td>{{ entity.username }}</td>
+                    <td>{{ entity.email }}</td>
+                    <td>{{ entity.enabled|fontAwesome() }}</td>
+                    <td>
+                        <a class="btn btn-primary btn-sm"
+                           title="Show"
+                           href="{{ path('app.users.show', { 'id': entity.id }) }}">
+                            <i class="fa fa-search"></i>
+                        </a>
+                        <a class="btn btn-primary btn-sm"
+                           title="Edit"
+                           href="{{ path('app.users.edit', { 'id': entity.id }) }}">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endblock %}

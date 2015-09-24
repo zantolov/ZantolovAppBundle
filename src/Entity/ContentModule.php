@@ -27,19 +27,6 @@ class ContentModule
      */
     private $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $body;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="title", type="string", length=255)
-     */
-    private $name;
 
     /**
      * @return mixed

@@ -2,8 +2,6 @@
 
 namespace Zantolov\WebShopBundle\DataFixtures\ORM;
 
-use Zantolov\AppBundle\DataFixtures\ORM\AbstractDbFixture;
-
 use Zantolov\AppBundle\Entity\User;
 
 class LoadUserData extends AbstractDbFixture
