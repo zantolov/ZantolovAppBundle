@@ -15,11 +15,10 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class UserType extends AbstractType
 {
-    private $params = array(
-        'requiredPassword' => true
-    );
+    private $params;
 
-    public function __construct(array $params)
+
+    public function __construct(array $params = array('requiredPassword' => true))
     {
         $this->params = $params;
     }

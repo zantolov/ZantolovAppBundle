@@ -68,7 +68,7 @@ class UserController extends EntityCrudController
      */
     public function createCreateForm($entity)
     {
-        return parent::createBaseCreateForm($entity, new UserType(array('requiredPassword' => true)), $this->generateUrl('app.users.create'));
+        return parent::createBaseCreateForm($entity, new UserType(), $this->generateUrl('app.users.create'));
     }
 
     /**
@@ -108,7 +108,7 @@ class UserController extends EntityCrudController
      */
     public function createEditForm($entity)
     {
-        return parent::createBaseEditForm($entity, new UserType(), $this->generateUrl('app.users.update', array('id' => $entity->getId())));
+        return parent::createBaseEditForm($entity, new UserType(array('requiredPassword' => false)), $this->generateUrl('app.users.update', array('id' => $entity->getId())));
     }
 
     /**
