@@ -28,6 +28,13 @@ class UserType extends AbstractType
 
         $builder
             ->add('username')
+            ->add('roles', 'choice', array(
+                'multiple' => true,
+                'choices'  => array(
+                    'ROLE_USER'  => 'ROLE_USER',
+                    'ROLE_ADMIN' => 'ROLE_ADMIN',
+                )
+            ))
             ->add('email');
 
         if ($this->params['requiredPassword'] == false) {

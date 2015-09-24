@@ -46,6 +46,9 @@ class MenuBuilder extends ContainerAware
         $items[1]['users'] = $this->factory->createItem('Users', array('route' => 'app.users'))->setAttribute('icon', 'fa fa-user');
 
 
+        $items[20]['logout'] = $this->factory->createItem('Logout', array('route' => 'fos_user_security_logout'))->setAttribute('icon', 'fa fa-lock');
+
+
         /** @var MenuBuilderInterface $menu */
         foreach ($this->menus as $menu) {
             foreach ($menu->createMenu($requestStack) as $menuItem) {
