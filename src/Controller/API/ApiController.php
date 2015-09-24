@@ -165,11 +165,10 @@ abstract class ApiController extends Controller
     protected function createErrorResponse($msg = 'Error', $data = array(), $headers = array())
     {
         return $this->createResponse(array(
-            array(
-                self::KEY_STATUS  => self::STATUS_ERROR,
-                self::KEY_DATA    => $data,
-                self::KEY_MESSAGE => $msg,
-            )), $headers);
+            self::KEY_STATUS  => self::STATUS_ERROR,
+            self::KEY_DATA    => $data,
+            self::KEY_MESSAGE => $msg,
+        ), $headers);
     }
 
 }
