@@ -62,6 +62,7 @@ class ApiLoginController extends ApiController
             $findBy['username'] = $username;
         }
 
+        /** @var User $user */
         $user = $user_manager->findUserBy($findBy);
         if (empty($user)) {
             return $this->createResponse(array(self::KEY_STATUS => self::STATUS_ERROR, self::KEY_MESSAGE => 'User not found'));
@@ -79,15 +80,19 @@ class ApiLoginController extends ApiController
         $token->setUser($user);
         $token->setToken(sha1(uniqid()));
         $token->setUserAgent($request->headers->get('User-Agent'));
+
+        $user->setGcmRegistrationId(@$data['registrationId']);
+        $this->getDoctrine()->getManager()->persist($user);
         $this->getDoctrine()->getManager()->persist($token);
         $this->getDoctrine()->getManager()->flush();
 
         return $this->createResponse(array(
                 self::KEY_STATUS => self::STATUS_OK,
                 self::KEY_DATA   => array(
-                    'username' => $user->getUsername(),
-                    'email' => $user->getEmail(),
-                    'token'    => $token->getToken()
+                    'username'       => $user->getUsername(),
+                    'email'          => $user->getEmail(),
+                    'token'          => $token->getToken(),
+                    'registrationId' => $user->getGcmRegistrationId(),
                 ))
         );
 

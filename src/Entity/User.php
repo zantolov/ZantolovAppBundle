@@ -35,6 +35,12 @@ class User extends BaseUser
      */
     protected $tokens;
 
+
+    /**
+     * @ORM\Column(type="text", length=255)
+     */
+    protected $gcmRegistrationId;
+
     /**
      * @var ApiToken
      */
@@ -67,6 +73,22 @@ class User extends BaseUser
     public function __toString()
     {
         return sprintf('%s (%s)', $this->getUsername(), $this->getEmail());
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGcmRegistrationId()
+    {
+        return $this->gcmRegistrationId;
+    }
+
+    /**
+     * @param mixed $gcmRegistrationId
+     */
+    public function setGcmRegistrationId($gcmRegistrationId)
+    {
+        $this->gcmRegistrationId = $gcmRegistrationId;
     }
 
 }
