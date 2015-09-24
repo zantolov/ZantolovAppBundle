@@ -37,7 +37,7 @@ class User extends BaseUser
 
 
     /**
-     * @ORM\Column(type="text", length=255)
+     * @ORM\Column(type="text", length=255, nullable=true)
      */
     protected $gcmRegistrationId;
 
