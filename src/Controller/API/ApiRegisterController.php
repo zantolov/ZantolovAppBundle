@@ -44,7 +44,7 @@ class ApiRegisterController extends ApiController
         if (!isset($data['password']) || empty($data['password'])) {
             return $this->createResponse(array(
                 self::KEY_STATUS  => self::STATUS_ERROR,
-                self::KEY_MESSAGE => 'username not provided'));
+                self::KEY_MESSAGE => 'password not provided'));
         }
 
         $username = @$data['username'];

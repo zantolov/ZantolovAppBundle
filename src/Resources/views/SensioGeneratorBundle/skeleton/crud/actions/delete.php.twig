@@ -21,7 +21,7 @@
     return parent::baseDeleteAction(
         $request,
         $id,
-        $this->generateUrl('{{ route_name_prefix }}')
+        $this->generateUrl('{{ route_name_prefix }}.index')
     );
 {% endblock method_return %}
 }
