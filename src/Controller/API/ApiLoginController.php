@@ -61,7 +61,7 @@ class ApiLoginController extends ApiController
         if (!empty($username)) {
             $findBy['username'] = $username;
         }
-        
+
         $user = $user_manager->findUserBy($findBy);
         if (empty($user)) {
             return $this->createResponse(array(self::KEY_STATUS => self::STATUS_ERROR, self::KEY_MESSAGE => 'User not found'));
@@ -85,7 +85,8 @@ class ApiLoginController extends ApiController
         return $this->createResponse(array(
                 self::KEY_STATUS => self::STATUS_OK,
                 self::KEY_DATA   => array(
-                    'username' => $username,
+                    'username' => $user->getUsername(),
+                    'email' => $user->getEmail(),
                     'token'    => $token->getToken()
                 ))
         );
