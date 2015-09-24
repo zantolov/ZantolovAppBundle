@@ -63,4 +63,10 @@ class User extends BaseUser
         $this->activeToken = $activeToken;
     }
 
+
+    public function __toString()
+    {
+        return sprintf('%s (%s)', $this->getUsername(), $this->getEmail());
+    }
+
 }

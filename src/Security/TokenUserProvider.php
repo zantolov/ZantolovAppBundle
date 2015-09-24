@@ -2,8 +2,6 @@
 
 namespace Zantolov\AppBundle\Security;
 
-use Codsly\MyBeeLineAppBundle\Entity\ApiToken;
-use Codsly\MyBeeLineAppBundle\Entity\User;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -11,6 +9,8 @@ use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
+use Zantolov\AppBundle\Entity\ApiToken;
+use Zantolov\AppBundle\Entity\User;
 
 class TokenUserProvider implements UserProviderInterface, ContainerAwareInterface
 {

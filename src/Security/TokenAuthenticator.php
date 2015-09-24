@@ -25,14 +25,15 @@ class TokenAuthenticator implements SimplePreAuthenticatorInterface
     {
         // look for an apikey query parameter
         $apiKey = $request->get('token');
+        $apiKeyHeader = $request->headers->get('X-Api-Token');
 
-        if (!$apiKey) {
+        if (!$apiKey && !$apiKeyHeader) {
             throw new BadCredentialsException('No API key found');
         }
 
         return new PreAuthenticatedToken(
             'anon.',
-            $apiKey,
+            (empty($apiKey) ? $apiKeyHeader : $apiKey),
             $providerKey
         );
     }

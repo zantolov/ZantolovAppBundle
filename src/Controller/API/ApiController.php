@@ -154,8 +154,22 @@ abstract class ApiController extends Controller
         } catch (\Exception $e) {
             return null;
         }
+    }
 
-
+    /**
+     * @param string $msg
+     * @param array $data
+     * @param array $headers
+     * @return array
+     */
+    protected function createErrorResponse($msg = 'Error', $data = array(), $headers = array())
+    {
+        return $this->createResponse(array(
+            array(
+                self::KEY_STATUS  => self::STATUS_ERROR,
+                self::KEY_DATA    => $data,
+                self::KEY_MESSAGE => $msg,
+            )), $headers);
     }
 
 }
