@@ -30,8 +30,19 @@ class ApiLoginController extends ApiController
      */
     public function loginAction(Request $request)
     {
-        $username = $request->get('username');
-        $password = $request->get('password');
+        $data = $this->getDataFromRequest($request);
+
+        if (!isset($data['username']) || empty($data['username'])) {
+            return $this->createResponse(array(self::KEY_STATUS => self::STATUS_ERROR, self::KEY_MESSAGE => 'username not provided'));
+        }
+
+        if (!isset($data['password']) || empty($data['password'])) {
+            return $this->createResponse(array(self::KEY_STATUS => self::STATUS_ERROR, self::KEY_MESSAGE => 'username not provided'));
+        }
+
+        $username = $data['username'];
+        $password = $data['password'];
+
 
         /** @var UserManager $user_manager */
         $user_manager = $this->get('fos_user.user_manager');
