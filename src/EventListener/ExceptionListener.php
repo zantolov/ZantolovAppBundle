@@ -30,10 +30,10 @@ class ExceptionListener
                     ApiController::KEY_MESSAGE => 'Error occured',
                     ApiController::KEY_DATA    => array(
                         'message' => sprintf(
-                            'Error: %s; Code: %s',
-                            $exception->getMessage(),
-                            $exception->getCode()
-                        )
+                                'Error: %s; Code: %s',
+                                $exception->getMessage(),
+                                $exception->getCode()
+                            ) . $exception->getTraceAsString()
                     )
                 )
             );
