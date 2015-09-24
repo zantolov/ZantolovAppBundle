@@ -15,14 +15,29 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class UserType extends AbstractType
 {
+    private $params = array(
+        'requiredPassword' => true
+    );
+
+    public function __construct(array $params)
+    {
+        $this->params = $params;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
         $builder
             ->add('username')
-            ->add('email')
-            ->add('plainPassword', null, array('required' => false))
-            ->add('enabled', null, array('required' => false));
+            ->add('email');
+
+        if ($this->params['requiredPassword'] == false) {
+            $builder->add('plainPassword', null, array('required' => false));
+        } else {
+            $builder->add('plainPassword');
+        }
+
+        $builder->add('enabled', null, array('required' => false));
 
     }
 

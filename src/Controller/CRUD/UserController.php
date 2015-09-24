@@ -40,7 +40,25 @@ class UserController extends EntityCrudController
      */
     public function createAction(Request $request)
     {
-        return parent::baseCreateAction($request, new User(), 'app.users.show');
+        /** @var UserManager $userManager */
+        $userManager = $this->get('fos_user.user_manager');
+
+        /** @var User $entity */
+        $entity = $userManager->createUser();
+        $form = $this->createCreateForm($entity)->handleRequest($request);
+
+        if ($form->isValid()) {
+            $userManager->updateUser($entity);
+            $created = $this->translate('Created');
+            $this->get('session')->getFlashBag()->add('success', $created);
+
+            return $this->redirect($this->generateUrl('app.users.show', array('id' => $entity->getId())));
+        }
+
+        return array(
+            'entity' => $entity,
+            'form'   => $form->createView(),
+        );
     }
 
     /**
@@ -50,7 +68,7 @@ class UserController extends EntityCrudController
      */
     public function createCreateForm($entity)
     {
-        return parent::createBaseCreateForm($entity, new UserType(), $this->generateUrl('app.users.create'));
+        return parent::createBaseCreateForm($entity, new UserType(array('requiredPassword' => true)), $this->generateUrl('app.users.create'));
     }
 
     /**
