@@ -2,12 +2,12 @@
 
 namespace Zantolov\AppBundle\EventListener;
 
-use Codsly\MyBeeLineAppBundle\Controller\Api\ApiController;
 use Doctrine\Common\Util\Debug;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+use Zantolov\AppBundle\Controller\API\ApiController;
 
 
 class ExceptionListener
