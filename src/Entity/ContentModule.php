@@ -27,6 +27,18 @@ class ContentModule
      */
     private $id;
 
+    /**
+     * @var string
+     * @ORM\Column(type="text")
+     */
+    private $body;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string")
+     */
+    private $name;
+
 
     /**
      * @return mixed
