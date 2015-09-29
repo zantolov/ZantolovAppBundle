@@ -2,6 +2,7 @@
 
 namespace Zantolov\WebShopBundle\DataFixtures\ORM;
 
+use Zantolov\AppBundle\DataFixtures\ORM\AbstractDbFixture;
 use Zantolov\AppBundle\Entity\User;
 
 class LoadUserData extends AbstractDbFixture
@@ -27,7 +28,7 @@ class LoadUserData extends AbstractDbFixture
         $user->setEmail('admin@mailinator.com');
         $user->setPlainPassword('123456');
         $user->setEnabled(true);
-        $user->setRoles(array('ROLE_USER'));
+        $user->setRoles(array('ROLE_USER', 'ROLE_ADMIN'));
         $this->addReference('admin', $user);
         $userManager->updateUser($user, true);
 

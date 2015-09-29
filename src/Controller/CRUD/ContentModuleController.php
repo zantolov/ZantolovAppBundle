@@ -11,7 +11,7 @@ use Zantolov\AppBundle\Entity\ContentModule;
 use Zantolov\AppBundle\Form\ContentModuleType;
 
 /**
- * @Route("/content-module")
+ * @Route("/admin/content-module")
  */
 class ContentModuleController extends EntityCrudController
 {
