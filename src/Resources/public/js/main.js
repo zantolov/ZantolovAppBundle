@@ -11,7 +11,7 @@ var application = window.application || {
         },
 
         config: {
-            datetimeFormat: 'd.m.Y H:i',
+            datetimeFormat: 'd.m.Y. H:i',
             locale: 'en'
         },
 
