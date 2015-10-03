@@ -18,6 +18,9 @@
                         <li class=""><a href="#filters" data-toggle="tab">{% trans %}Filters{% endtrans %}</a></li>
                     {% endif %}
 
+                    {% block additionalTabLinks %}{% endblock %}
+
+
                 {% endblock %}
             </ul>
             <!-- /Nav tabs -->
@@ -35,6 +38,9 @@
                             {% endblock %}
                         </div>
                     {% endif %}
+
+                    {% block additionalTabs %}{% endblock %}
+
                 {% endblock %}
             </div>
             <!-- /Tab panes -->
