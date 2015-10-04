@@ -47,7 +47,6 @@ var application = window.application || {
             });
         },
 
-
         initSubmitLinksPlugin: function () {
             var self = this;
 
@@ -76,7 +75,6 @@ var application = window.application || {
             })
         },
 
-
         confirmOnClick: function () {
             $('[data-confirm]').on("click", function (e) {
                 if (!confirm($(this).attr('data-confirm'))) {
@@ -86,6 +84,17 @@ var application = window.application || {
                 }
             });
 
+        },
+
+        initAdditionalBootstrap: function () {
+            // Tab change on hover
+            $('.nav-tabs > li.hoverActiveable > a').hover(function () {
+                $(this).click();
+            });
+
+            $('.nav-tabs > li.dragActiveable > a').on('dragenter', function () {
+                $(this).click();
+            });
         }
     };
 

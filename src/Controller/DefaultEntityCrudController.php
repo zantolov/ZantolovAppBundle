@@ -105,7 +105,7 @@ abstract class DefaultEntityCrudController extends EntityCrudController
      */
     public function deleteAction(Request $request, $id)
     {
-        return parent::baseDeleteAction($request, $id, static::ROUTE_PREFIX . static::ROUTE_INDEX);
+        return parent::baseDeleteAction($request, $id, $this->generateUrl(static::ROUTE_PREFIX . static::ROUTE_INDEX));
     }
 
 
