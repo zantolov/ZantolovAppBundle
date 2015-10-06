@@ -29,18 +29,8 @@
     <script src="{{ asset('bundles/zantolovapp/js/bootstrap.min.js') }}"></script>
 
     {% block customJsPlugins %}{% endblock %}
+
     <script src="{{ asset('bundles/zantolovapp/js/main.js') }}"></script>
-
-    {# Dynamic load stylesheets and Js from service #}
-    <script>
-        {% for stylesheet in assetsService.getCss() %}
-        loadjscssfile("{{ stylesheet }}", "css");
-        {% endfor %}
-    </script>
-
-    {% for script in assetsService.getJs() %}
-    <script src="{{ script }}"></script>
-    {% endfor %}
 
 {%- endblock %}
 </body>
