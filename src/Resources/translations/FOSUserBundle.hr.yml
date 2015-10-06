@@ -20,6 +20,7 @@ security:
         password: "Lozinka:"
         remember_me: Zapamti me
         submit: Prijava
+        reset: Resetiraj lozinku
 
 # Profile
 profile:
