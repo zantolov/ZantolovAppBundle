@@ -95,6 +95,30 @@ var application = window.application || {
             $('.nav-tabs > li.dragActiveable > a').on('dragenter', function () {
                 $(this).click();
             });
+        },
+
+
+        initMassAction: function(){
+            $('.activateSelectedBtn').on("click", function () {
+                doMass('activate');
+            });
+
+            $('.deactivateSelectedBtn').on("click", function () {
+                doMass('deactivate');
+            });
+
+            $('.selectVisible').on("click", function () {
+                $('tr td:first-child input:checkbox').click();
+            });
+
+            $('.deselectSelection').on("click", function () {
+                $('tr td:first-child input:checkbox:checked').click();
+            });
+
+            $('.deleteSelectedBtn').on("click", function () {
+                doMass('delete');
+            });
+
         }
     };
 
