@@ -272,6 +272,9 @@ abstract class EntityCrudController extends Controller
             case 'deactivate':
                 $res = $this->getRepository()->massFieldUpdate($ids, 'active', '0');
                 break;
+            case 'delete':
+                $res = $this->getRepository()->massDelete($ids);
+                break;
             default:
                 return new JsonResponse(array('status' => 0));
         }
