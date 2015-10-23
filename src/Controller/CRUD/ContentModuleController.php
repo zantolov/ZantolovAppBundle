@@ -49,7 +49,7 @@ class ContentModuleController extends EntityCrudController
      */
     public function createCreateForm($entity)
     {
-        return parent::createBaseCreateForm($entity, new ContentModuleType(), $this->generateUrl('app.content-module.create'));
+        return parent::createBaseCreateForm($entity, new ContentModuleType($entity->isEditor()), $this->generateUrl('app.content-module.create'));
     }
 
     /**
@@ -89,7 +89,7 @@ class ContentModuleController extends EntityCrudController
      */
     public function createEditForm($entity)
     {
-        return parent::createBaseEditForm($entity, new ContentModuleType(), $this->generateUrl('app.content-module.update', array('id' => $entity->getId())));
+        return parent::createBaseEditForm($entity, new ContentModuleType($entity->isEditor()), $this->generateUrl('app.content-module.update', array('id' => $entity->getId())));
     }
 
     /**

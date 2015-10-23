@@ -39,6 +39,12 @@ class ContentModule
      */
     private $name;
 
+    /**
+     * @var boolean
+     * @ORM\Column(type="boolean")
+     */
+    private $editor = true;
+
 
     /**
      * @return mixed
@@ -87,5 +93,22 @@ class ContentModule
     {
         $this->name = $name;
     }
+
+    /**
+     * @return boolean
+     */
+    public function isEditor()
+    {
+        return $this->editor;
+    }
+
+    /**
+     * @param boolean $editor
+     */
+    public function setEditor($editor)
+    {
+        $this->editor = $editor;
+    }
+
 
 }
