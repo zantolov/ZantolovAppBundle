@@ -120,4 +120,22 @@ class ApiLoginController extends ApiController
         return $this->createResponse(array(self::KEY_STATUS => self::STATUS_OK, self::KEY_MESSAGE => 'User logged out', self::KEY_DATA => array('username' => $user->getUsername())));
     }
 
+
+    /**
+     *
+     * @Route("/login/check", name="api.login.check")
+     * @Method("POST")
+     */
+    public function checkAction(Request $r)
+    {
+        /** @var User $user */
+        $user = $this->getCurrentUser();
+
+        if (empty($user) || !($user instanceof User)) {
+            return $this->createResponse(array(self::KEY_STATUS => self::STATUS_ERROR, self::KEY_MESSAGE => 'User not logged in'));
+        }
+
+        return $this->createResponse(array(self::KEY_STATUS => self::STATUS_OK, self::KEY_MESSAGE => 'User logged in', self::KEY_DATA => array('username' => $user->getUsername())));
+    }
+
 }
