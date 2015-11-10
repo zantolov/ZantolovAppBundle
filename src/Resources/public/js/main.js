@@ -98,7 +98,7 @@ var application = window.application || {
         },
 
 
-        initMassAction: function(){
+        initMassAction: function () {
             $('.activateSelectedBtn').on("click", function () {
                 doMass('activate');
             });
@@ -119,40 +119,27 @@ var application = window.application || {
                 doMass('delete');
             });
 
+        },
+
+        initOnChangeSubmit: function () {
+            $('.onChangeSubmit').on('change', function () {
+                var form = $(this).closest('form');
+                form.submit();
+            });
         }
     };
 
-/**
- * Reset and submit current form - used for clearing filters
- * @param elem
- */
-function resetFormAndSubmit(elem) {
+        /**
+         * Reset and submit current form - used for clearing filters
+         * @param elem
+         */
+        function resetFormAndSubmit(elem)
+{
     var form = $(elem).closest('form');
     form.find('input,select').each(function () {
         $(this).val('');
     });
     form.submit();
-}
-
-/**
- * @param filename
- * @param filetype
- */
-function loadjscssfile(filename, filetype) {
-    if (filetype == "js") { //if filename is a external JavaScript file
-        var fileref = document.createElement('script');
-        fileref.setAttribute("type", "text/javascript");
-        fileref.setAttribute("src", filename);
-    }
-    else if (filetype == "css") { //if filename is an external CSS file
-        var fileref = document.createElement("link");
-        fileref.setAttribute("rel", "stylesheet");
-        fileref.setAttribute("type", "text/css");
-        fileref.setAttribute("href", filename)
-    }
-    if (typeof fileref != "undefined") {
-        document.getElementsByTagName("head")[0].appendChild(fileref);
-    }
 }
 
 $(function () {
