@@ -1,0 +1,14 @@
+<ul class="list-inline">
+    <li>
+        <a class="btn btn-primary btn-xs"
+           href="{{ path(crudId ~ '.show', { 'id': item.id }) }}">
+            <i class="fa fa-search"></i> show
+        </a>
+    </li>
+    <li>
+        <a class="btn btn-primary btn-xs"
+           href="{{ path(crudId ~ '.edit', { 'id': item.id }) }}">
+            <i class="fa fa-edit"></i> edit
+        </a>
+    </li>
+</ul>

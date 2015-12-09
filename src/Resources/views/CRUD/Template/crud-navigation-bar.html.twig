@@ -1,0 +1,66 @@
+{% block crudLinks %}
+    {% if routePrefix is defined %}
+
+        {% if id is defined %}
+            {% set displayItemSpecifics = true %}
+        {% else %}
+            {% set displayItemSpecifics = false %}
+        {% endif %}
+
+
+        <div class="row">
+            <div class="col-md-6">
+                <ul class="list-inline">
+
+                    {% if displayItemSpecifics and (ignoreLinks is not defined or (ignoreLinks is defined and 'edit' not in ignoreLinks)) %}
+                        <li>
+                            <a href="{{ url(routePrefix ~'.edit', {id: id}) }}" class="btn btn-sm btn-primary">
+                                <i class="fa fa-edit"></i> EDIT
+                            </a>
+                        </li>
+                    {% endif %}
+
+                    {% if displayItemSpecifics and (ignoreLinks is not defined or (ignoreLinks is defined and 'show' not in ignoreLinks)) %}
+                        <li>
+                            <a href="{{ url(routePrefix ~'.show', {id: id}) }}" class="btn btn-sm btn-primary">
+                                <i class="fa fa-search"></i> PREVIEW
+                            </a>
+                        </li>
+                    {% endif %}
+
+                    {% if displayItemSpecifics and (ignoreLinks is not defined or (ignoreLinks is defined and 'delete' not in ignoreLinks)) %}
+                        <li>
+                            <a href="{{ url(routePrefix ~'.delete', {id: id}) }}" class="btn btn-sm btn-danger">
+                                <i class="fa fa-trash-o"></i> DELETE
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+
+            <div class="col-md-6 text-right">
+
+                <ul class="list-inline">
+
+                    {% if ignoreLinks is not defined or (ignoreLinks is defined and 'list' not in ignoreLinks) %}
+                        <li>
+                            <a href="{{ url(routePrefix ~'.index') }}" class="btn btn-sm btn-primary">
+                                <i class="fa fa-arrow-left"></i> BACK TO LIST
+                            </a>
+                        </li>
+                    {% endif %}
+
+                    {% if ignoreLinks is not defined or (ignoreLinks is defined and 'new' not in ignoreLinks) %}
+                        <li>
+                            <a href="{{ url(routePrefix ~'.new') }}" class="btn btn-sm btn-primary">
+                                <i class="fa fa-plus"></i> NEW
+                            </a>
+                        </li>
+                    {% endif %}
+
+                </ul>
+            </div>
+        </div>
+
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,19 @@
+<div class="dataTableContainer">
+    <table class="table dataTable">
+        <thead>
+        {% block thead %}
+            <tr>
+
+            </tr>
+        {% endblock thead %}
+        </thead>
+        <tbody>
+        {% for item in items %}
+            {% block item %}
+                <tr>
+                </tr>
+            {% endblock item %}
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
