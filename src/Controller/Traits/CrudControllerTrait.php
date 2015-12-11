@@ -5,7 +5,9 @@ namespace Zantolov\AppBundle\Controller\Traits;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
@@ -73,6 +75,12 @@ trait CrudControllerTrait
 
     /** @return EntityManager */
     abstract protected function getManager();
+
+    /** @return FlashBag */
+    abstract protected function sessionFlash();
+
+    /** @return RedirectResponse */
+    abstract protected function redirectToRoute($route, array $parameters = [], $status = 302);
 
     /**
      * @return Form
@@ -229,6 +237,7 @@ trait CrudControllerTrait
             $this->sessionFlash()->add('success', $this->translate('Created'));
 
             return $this->redirectToRoute(static::getRoutesConfig()[static::$ROUTE_EDIT], ['id' => $entity->getId()]);
+
         }
 
         $crudId = static::getCrudId();
