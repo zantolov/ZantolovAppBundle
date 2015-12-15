@@ -1,0 +1,12 @@
+crud:
+  edit: 'Edit'
+  new: 'New'
+  delete: 'Delete'
+  show: 'Show'
+  back: 'Back to list'
+
+sex:
+  male: 'Male'
+  female: 'Female'
+  m: 'm'
+  f: 'f'

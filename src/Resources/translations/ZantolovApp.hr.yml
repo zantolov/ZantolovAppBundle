@@ -1,0 +1,12 @@
+crud:
+  edit: 'Uredi'
+  new: 'Novo'
+  delete: 'Obriši'
+  show: 'Prikaži'
+  back: 'Natrag na listu'
+
+sex:
+  male: 'Muško'
+  female: 'Žensko'
+  m: 'm'
+  f: 'ž'

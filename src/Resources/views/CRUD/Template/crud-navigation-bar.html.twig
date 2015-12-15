@@ -1,3 +1,4 @@
+{% trans_default_domain "ZantolovApp" %}
 {% block crudLinks %}
     {% if routePrefix is defined %}
 
@@ -15,7 +16,8 @@
                     {% if displayItemSpecifics and (ignoreLinks is not defined or (ignoreLinks is defined and 'edit' not in ignoreLinks)) %}
                         <li>
                             <a href="{{ url(routePrefix ~'.edit', {id: id}) }}" class="btn btn-sm btn-primary">
-                                <i class="fa fa-edit"></i> EDIT
+                                <i class="fa fa-edit"></i>
+                                {{ 'crud.edit'|trans }}
                             </a>
                         </li>
                     {% endif %}
@@ -23,7 +25,8 @@
                     {% if displayItemSpecifics and (ignoreLinks is not defined or (ignoreLinks is defined and 'show' not in ignoreLinks)) %}
                         <li>
                             <a href="{{ url(routePrefix ~'.show', {id: id}) }}" class="btn btn-sm btn-primary">
-                                <i class="fa fa-search"></i> PREVIEW
+                                <i class="fa fa-search"></i>
+                                {{ 'crud.show'|trans }}
                             </a>
                         </li>
                     {% endif %}
@@ -31,7 +34,8 @@
                     {% if displayItemSpecifics and (ignoreLinks is not defined or (ignoreLinks is defined and 'delete' not in ignoreLinks)) %}
                         <li>
                             <a href="{{ url(routePrefix ~'.delete', {id: id}) }}" class="btn btn-sm btn-danger">
-                                <i class="fa fa-trash-o"></i> DELETE
+                                <i class="fa fa-trash-o"></i>
+                                {{ 'crud.delete'|trans }}
                             </a>
                         </li>
                     {% endif %}
@@ -45,15 +49,17 @@
                     {% if ignoreLinks is not defined or (ignoreLinks is defined and 'list' not in ignoreLinks) %}
                         <li>
                             <a href="{{ url(routePrefix ~'.index') }}" class="btn btn-sm btn-primary">
-                                <i class="fa fa-arrow-left"></i> BACK TO LIST
+                                <i class="fa fa-arrow-left"></i>
+                                {{ 'crud.back'|trans }}
                             </a>
                         </li>
                     {% endif %}
 
                     {% if ignoreLinks is not defined or (ignoreLinks is defined and 'new' not in ignoreLinks) %}
                         <li>
-                            <a href="{{ url(routePrefix ~'.new') }}" class="btn btn-sm btn-primary">
-                                <i class="fa fa-plus"></i> NEW
+                            <a href="{{ url(routePrefix ~'.new') }}" class="btn btn-sm btn-success">
+                                <i class="fa fa-plus"></i>
+                                {{ 'crud.new'|trans }}
                             </a>
                         </li>
                     {% endif %}

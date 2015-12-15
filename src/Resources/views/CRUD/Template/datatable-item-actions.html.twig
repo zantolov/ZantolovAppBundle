@@ -1,14 +1,21 @@
+{% trans_default_domain "ZantolovApp" %}
 <ul class="list-inline">
     <li>
         <a class="btn btn-primary btn-xs"
            href="{{ path(crudId ~ '.show', { 'id': item.id }) }}">
-            <i class="fa fa-search"></i> show
+            <i class="fa fa-search"></i>
+            {% if showLabels is defined and shoLabels == true %}
+                {{ 'crud.show'|trans }}
+            {% endif %}
         </a>
     </li>
     <li>
         <a class="btn btn-primary btn-xs"
            href="{{ path(crudId ~ '.edit', { 'id': item.id }) }}">
-            <i class="fa fa-edit"></i> edit
+            <i class="fa fa-edit"></i>
+            {% if showLabels is defined and shoLabels == true %}
+                {{ 'crud.edit'|trans }}
+            {% endif %}
         </a>
     </li>
 </ul>

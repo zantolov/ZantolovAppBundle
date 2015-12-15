@@ -22,5 +22,15 @@ class ZantolovAppBundle extends Bundle
     {
         return 'FOSUserBundle';
     }
+
+    public static function getDependentBundles()
+    {
+        return [
+            new \Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new \Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
+            new \Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
+            new \Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+        ];
+    }
 }
 

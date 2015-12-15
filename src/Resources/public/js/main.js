@@ -1,6 +1,7 @@
 var application = window.application || {
 
         init: function () {
+            this.initAlertUnsaved();
             var functions = window.functions || [];
 
             for (var i = 0; i < functions.length; i++) {
@@ -12,19 +13,29 @@ var application = window.application || {
 
         config: {
             datetimeFormat: 'd.m.Y. H:i',
-            locale: 'en'
+            dateFormat: 'd.m.Y.',
+            locale: 'en',
+            datatables: {
+                language: {}
+            }
         },
 
         initDatatables: function () {
             var self = this;
-            //Datatables
-            $('table.dataTable').dataTable({
+            var options = {
                 "pageLength": 30,
                 "stateSave": true,
                 "initComplete": function (settings, json) {
                     $(this).addClass('initialized');
                 }
-            });
+            };
+
+            if (self.config.datatables.language.url != undefined) {
+                options.language = self.config.datatables.language;
+            }
+
+            //Datatables
+            $('table.dataTable').dataTable(options);
         },
 
         initSelect2: function () {
@@ -44,6 +55,12 @@ var application = window.application || {
                 lang: self.config.locale,
                 timepicker: true,
                 format: self.config.datetimeFormat
+            });
+
+            $('.datepicker').datetimepicker({
+                lang: self.config.locale,
+                timepicker: false,
+                format: self.config.dateFormat
             });
         },
 
@@ -126,15 +143,33 @@ var application = window.application || {
                 var form = $(this).closest('form');
                 form.submit();
             });
+        },
+
+        initAlertUnsaved: function () {
+            $elem = $('.unsavedAlertForm form');
+            $elem.on('submit', function(){
+                $(window).unbind('beforeunload.zantolov');
+            });
+
+            var formData = $elem.serialize();
+            $(window).bind('beforeunload.zantolov', function (e) {
+                if ($elem.serialize() != formData) {
+                    return true;
+                }
+                else {
+                    e = null; // i.e; if form state change show warning box, else don't show it.
+                }
+            });
         }
     };
 
-        /**
-         * Reset and submit current form - used for clearing filters
-         * @param elem
-         */
-        function resetFormAndSubmit(elem)
-{
+window.application = application;
+
+/**
+ * Reset and submit current form - used for clearing filters
+ * @param elem
+ */
+function resetFormAndSubmit(elem) {
     var form = $(elem).closest('form');
     form.find('input,select').each(function () {
         $(this).val('');
@@ -145,3 +180,5 @@ var application = window.application || {
 $(function () {
     application.init();
 });
+
+
