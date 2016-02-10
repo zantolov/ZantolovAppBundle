@@ -13,9 +13,9 @@ trait EasyControllerTrait
      * @param $string
      * @return String
      */
-    protected function translate($string)
+    protected function translate($string, $params = [], $domain = null)
     {
-        return $this->get('translator')->trans($string);
+        return $this->get('translator')->trans($string, $params, $domain);
     }
 
     /**

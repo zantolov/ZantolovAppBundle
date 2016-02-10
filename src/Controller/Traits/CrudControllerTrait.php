@@ -71,7 +71,7 @@ trait CrudControllerTrait
      * @param $text
      * @return string
      */
-    abstract protected function translate($text);
+    abstract protected function translate($string, $params = [], $domain = null);
 
     /** @return EntityManager */
     abstract protected function getManager();
@@ -241,6 +241,7 @@ trait CrudControllerTrait
         }
 
         $crudId = static::getCrudId();
+        $form = $form->createView();
         return compact('form', 'crudId');
     }
 

@@ -6,10 +6,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Zantolov\AppBundle\Repository;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 /**
  * @ORM\Entity(repositoryClass="Zantolov\AppBundle\Repository\UserRepository")
  * @ORM\Table(name="users")
  * @ORM\HasLifecycleCallbacks
+ * @UniqueEntity("email")
+ * @UniqueEntity("username")
  */
 class User extends BaseUser
 {
