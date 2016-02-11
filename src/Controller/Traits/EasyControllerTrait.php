@@ -10,12 +10,15 @@ trait EasyControllerTrait
     abstract function get($key);
 
     /**
-     * @param $string
-     * @return String
+     * @param $id
+     * @param array $parameters
+     * @param null $domain
+     * @param null $locale
+     * @return mixed
      */
-    protected function translate($string)
+    protected function translate($id, array $parameters = array(), $domain = null, $locale = null)
     {
-        return $this->get('translator')->trans($string);
+        return $this->get('translator')->trans($id, $parameters, $domain, $locale);
     }
 
     /**

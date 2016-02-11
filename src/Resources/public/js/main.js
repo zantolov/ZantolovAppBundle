@@ -14,8 +14,13 @@ var application = window.application || {
         config: {
             datetimeFormat: 'd.m.Y. H:i',
             dateFormat: 'd.m.Y.',
+            responsive: false,
             locale: 'en',
             datatables: {
+                fixedHeader: {
+                    header: true,
+                    headerOffset: 0
+                },
                 language: {}
             }
         },
@@ -23,7 +28,9 @@ var application = window.application || {
         initDatatables: function () {
             var self = this;
             var options = {
-                "pageLength": 30,
+                responsive: false,
+                "autoWidth": false,
+                "pageLength": 10,
                 "stateSave": true,
                 "initComplete": function (settings, json) {
                     $(this).addClass('initialized');
@@ -33,6 +40,16 @@ var application = window.application || {
             if (self.config.datatables.language.url != undefined) {
                 options.language = self.config.datatables.language;
             }
+
+            if (self.config.datatables.aoColumns != undefined) {
+                options.aoColumns = self.config.datatables.aoColumns;
+            }
+
+            if (self.config.datatables.fixedHeader != undefined) {
+                options.fixedHeader = self.config.datatables.fixedHeader;
+            }
+
+            console.log(options);
 
             //Datatables
             $('table.dataTable').dataTable(options);
@@ -147,7 +164,7 @@ var application = window.application || {
 
         initAlertUnsaved: function () {
             $elem = $('.unsavedAlertForm form');
-            $elem.on('submit', function(){
+            $elem.on('submit', function () {
                 $(window).unbind('beforeunload.zantolov');
             });
 

@@ -4,6 +4,17 @@ crud:
   delete: 'Obriši'
   show: 'Prikaži'
   back: 'Natrag na listu'
+  create: 'Kreiraj'
+  update: 'Ažuriraj'
+  confirm: 'Jeste li sigurni?'
+
+  status:
+    created: 'Kreirano!'
+    updated: 'Ažurirano!'
+    deleted: 'Obrisano!'
+
+  msg:
+    notfound: 'Nije pronađeno.'
 
 sex:
   male: 'Muško'

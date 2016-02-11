@@ -68,10 +68,13 @@ trait CrudControllerTrait
     abstract protected function createForm($type, $data = null, array $options = array());
 
     /**
-     * @param $text
-     * @return string
+     * @param $id
+     * @param array $parameters
+     * @param null $domain
+     * @param null $locale
+     * @return mixed
      */
-    abstract protected function translate($text);
+    abstract protected function translate($id, array $parameters = array(), $domain = null, $locale = null);
 
     /** @return EntityManager */
     abstract protected function getManager();
@@ -101,7 +104,7 @@ trait CrudControllerTrait
         );
 
         $form->add('submit', 'submit', [
-                'label' => $this->translate('Create'),
+                'label' => $this->translate('crud.create', [], 'ZantolovApp'),
                 'attr'  => [
                     'class' => 'btn btn-success btn-lg'
                 ]
@@ -126,7 +129,7 @@ trait CrudControllerTrait
         );
 
         $form->add('submit', 'submit', [
-                'label' => $this->translate('Update'),
+                'label' => $this->translate('crud.update', [], 'ZantolovApp'),
                 'attr'  => [
                     'class' => 'btn btn-success btn-lg'
                 ]
@@ -141,8 +144,8 @@ trait CrudControllerTrait
      */
     protected function getDeleteForm($entity)
     {
-        $delete = $this->translate('Delete');
-        $confirm = $this->translate('Are you sure?');
+        $delete = $this->translate('crud.delete', [], 'ZantolovApp');
+        $confirm = $this->translate('crud.confirm', [], 'ZantolovApp');
         return $this->createFormBuilder()
             ->setAction($this->generateUrl($this->getRoutesConfig()[self::$ROUTE_DESTROY], ['id' => $entity->getId()]))
             ->setMethod('DELETE')
@@ -183,7 +186,7 @@ trait CrudControllerTrait
         $entity = $this->getEntityRepository()->find($id);
 
         if (!$entity) {
-            throw new \Exception($this->translate('Entity Not Found'));
+            throw new \Exception($this->translate('crud.msg.notfound', [], 'ZantolovApp'));
         }
 
         return $entity;
@@ -234,11 +237,12 @@ trait CrudControllerTrait
             $em = $this->getManager();
             $em->persist($entity);
             $em->flush();
-            $this->sessionFlash()->add('success', $this->translate('Created'));
+            $this->sessionFlash()->add('success', $this->translate('crud.status.created', [], 'ZantolovApp'));
 
             return $this->redirectToRoute(static::getRoutesConfig()[static::$ROUTE_EDIT], ['id' => $entity->getId()]);
 
         }
+        $form = $form->createView();
 
         $crudId = static::getCrudId();
         return compact('form', 'crudId');
@@ -266,7 +270,7 @@ trait CrudControllerTrait
 
         if ($form->isValid()) {
             $this->getManager()->flush();
-            $this->sessionFlash()->add('success', $this->translate('Updated'));
+            $this->sessionFlash()->add('success', $this->translate('crud.status.updated', [], 'ZantolovApp'));
             return $this->redirectToRoute(static::getRoutesConfig()[static::$ROUTE_EDIT], ['id' => $entity->getId()]);
         }
 
@@ -294,7 +298,7 @@ trait CrudControllerTrait
         $entity = $this->getEntityById($id);
         $this->getManager()->remove($entity);
         $this->getManager()->flush();
-        $this->sessionFlash()->add('success', $this->translate('Deleted'));
+        $this->sessionFlash()->add('success', $this->translate('crud.status.deleted', [], 'ZantolovApp'));
         return $this->redirectToRoute(static::getRoutesConfig()[static::$ROUTE_INDEX]);
     }
 

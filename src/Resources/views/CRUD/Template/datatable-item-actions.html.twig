@@ -1,7 +1,9 @@
 {% trans_default_domain "ZantolovApp" %}
 <ul class="list-inline">
     <li>
-        <a class="btn btn-primary btn-xs"
+        <a class="btn btn-primary btn-xs hasTooltip"
+           title="{{ 'crud.show'|trans }}"
+           data-placement="left"
            href="{{ path(crudId ~ '.show', { 'id': item.id }) }}">
             <i class="fa fa-search"></i>
             {% if showLabels is defined and shoLabels == true %}
@@ -10,8 +12,11 @@
         </a>
     </li>
     <li>
-        <a class="btn btn-primary btn-xs"
-           href="{{ path(crudId ~ '.edit', { 'id': item.id }) }}">
+        <a class="btn btn-primary btn-xs hasTooltip"
+           href="{{ path(crudId ~ '.edit', { 'id': item.id }) }}"
+           title="{{ 'crud.edit'|trans }}"
+           data-placement="left"
+                >
             <i class="fa fa-edit"></i>
             {% if showLabels is defined and shoLabels == true %}
                 {{ 'crud.edit'|trans }}

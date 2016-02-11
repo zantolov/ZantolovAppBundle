@@ -1,7 +1,11 @@
 {% extends "ZantolovAppBundle::Layout/html5.html.twig" %}
 
 {% block customStylesheets %}
-    <link href="{{ asset('bundles/zantolovapp/css/datatables/dataTables.bootstrap.css') }}" rel="stylesheet">
+    {#<link href="{{ asset('bundles/zantolovapp/css/datatables/dataTables.bootstrap.css') }}" rel="stylesheet">#}
+
+    <link href="https://cdn.datatables.net/1.10.10/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/fixedheader/3.1.0/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+
     <link href="{{ asset('bundles/zantolovapp/css/select2/select2.min.css') }}" rel="stylesheet">
 
     {{ parent() }}
@@ -9,15 +13,22 @@
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,400italic,500,700,900,300italic,500italic,700italic|Roboto+Slab:400,300,700&subset=latin,latin-ext'
           rel='stylesheet' type='text/css'>
     <link href="{{ asset('bundles/zantolovapp/css/datetime-picker/jquery.datetimepicker.css') }}" rel="stylesheet">
-
+    <link href="https://cdn.datatables.net/responsive/2.0.1/css/responsive.bootstrap.min.css" rel="stylesheet">
 {% endblock %}
 
 
 {% block customJsPlugins -%}
     {{ parent() }}
 
-    <script src="{{ asset('bundles/zantolovapp/js/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('bundles/zantolovapp/js/datatables/dataTables.bootstrap.js') }}"></script>
+    {#<script src="{{ asset('bundles/zantolovapp/js/datatables/jquery.dataTables.min.js') }}"></script>#}
+    {#<script src="{{ asset('bundles/zantolovapp/js/datatables/dataTables.bootstrap.js') }}"></script>#}
+
+    <script src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.10/js/dataTables.bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/fixedheader/3.1.0/js/dataTables.fixedHeader.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.0.1/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.0.1/js/responsive.bootstrap.min.js"></script>
+
 
     <script src="{{ asset('bundles/zantolovapp/js/select2/select2.min.js') }}"></script>
     <script src="{{ asset('bundles/zantolovapp/js/datetime-picker/jquery.datetimepicker.js') }}"></script>

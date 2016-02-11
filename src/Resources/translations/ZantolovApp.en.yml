@@ -4,6 +4,18 @@ crud:
   delete: 'Delete'
   show: 'Show'
   back: 'Back to list'
+  create: 'Create'
+  update: 'Update'
+  confirm: 'Do you confirm?'
+
+  status:
+    created: 'Created'
+    updated: 'Updated'
+    deleted: 'Deleted'
+
+  msg:
+    notfound: 'Not found'
+
 
 sex:
   male: 'Male'
