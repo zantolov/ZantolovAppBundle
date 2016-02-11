@@ -245,6 +245,7 @@ trait CrudControllerTrait
         $form = $form->createView();
 
         $crudId = static::getCrudId();
+        $form = $form->createView();
         return compact('form', 'crudId');
     }
 
