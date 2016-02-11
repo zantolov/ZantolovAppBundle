@@ -275,6 +275,7 @@ trait CrudControllerTrait
             return $this->redirectToRoute(static::getRoutesConfig()[static::$ROUTE_EDIT], ['id' => $entity->getId()]);
         }
 
+        $form = $form->createView();
         $crudId = static::getCrudId();
         return compact('form', 'crudId');
     }
