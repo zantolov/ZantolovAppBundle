@@ -1,12 +1,13 @@
 var application = window.application || {
 
         init: function () {
+            var self = this;
             this.initAlertUnsaved();
             var functions = window.functions || [];
 
             for (var i = 0; i < functions.length; i++) {
                 if (typeof functions[i] === 'function') {
-                    functions[i](this);
+                    functions[i](self);
                 }
             }
         },
@@ -33,7 +34,7 @@ var application = window.application || {
             if (self.config.datatables.language.url != undefined) {
                 options.language = self.config.datatables.language;
             }
-
+            console.log(options);
             //Datatables
             $('table.dataTable').dataTable(options);
         },
