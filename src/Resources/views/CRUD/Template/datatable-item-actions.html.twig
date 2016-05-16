@@ -5,7 +5,7 @@
             <a class="btn btn-primary btn-xs"
                href="{{ path(crudId ~ '.show', { 'id': item.id }) }}">
                 <i class="fa fa-search"></i>
-                {% if showLabels is defined and shoLabels == true %}
+                {% if showLabels is defined and showLabels == true %}
                     {{ 'crud.show'|trans }}
                 {% endif %}
             </a>
@@ -14,7 +14,7 @@
             <a class="btn btn-primary btn-xs"
                href="{{ path(crudId ~ '.edit', { 'id': item.id }) }}">
                 <i class="fa fa-edit"></i>
-                {% if showLabels is defined and shoLabels == true %}
+                {% if showLabels is defined and showLabels == true %}
                     {{ 'crud.edit'|trans }}
                 {% endif %}
             </a>
