@@ -43,6 +43,11 @@ trait CrudControllerTrait
      */
     abstract protected function getCreateFormType();
 
+    public function beforeRender(array $params, $action)
+    {
+        return $params;
+    }
+
     /**
      * @return AbstractType
      */
@@ -218,7 +223,10 @@ trait CrudControllerTrait
     {
         $form = $this->getCreateForm()->createView();
         $crudId = static::getCrudId();
-        return compact('form', 'crudId');
+
+        $data = compact('form', 'crudId');
+        $data = $this->beforeRender($data, self::$ROUTE_NEW);
+        return $data;
     }
 
     /**
@@ -242,7 +250,10 @@ trait CrudControllerTrait
 
         $crudId = static::getCrudId();
         $form = $form->createView();
-        return compact('form', 'crudId');
+
+        $data = compact('form', 'crudId');
+        $data = $this->beforeRender($data, self::$ROUTE_CREATE);
+        return $data;
     }
 
     /**
@@ -253,7 +264,10 @@ trait CrudControllerTrait
     {
         $form = $this->getEditForm($this->getEntityById($id))->createView();
         $crudId = static::getCrudId();
-        return compact('form', 'crudId');
+
+        $data = compact('form', 'crudId', 'id');
+        $data = $this->beforeRender($data, self::$ROUTE_EDIT);
+        return $data;
     }
 
     /**
@@ -271,8 +285,12 @@ trait CrudControllerTrait
             return $this->redirectToRoute(static::getRoutesConfig()[static::$ROUTE_EDIT], ['id' => $entity->getId()]);
         }
 
+        $form = $form->createView();
         $crudId = static::getCrudId();
-        return compact('form', 'crudId');
+
+        $data = compact('form', 'crudId', 'id');
+        $data = $this->beforeRender($data, self::$ROUTE_UPDATE);
+        return $data;
     }
 
     /**
@@ -284,7 +302,10 @@ trait CrudControllerTrait
         $entity = $this->getEntityById($id);
         $form = $this->getDeleteForm($entity)->createView();
         $crudId = static::getCrudId();
-        return compact('form', 'entity', 'crudId');
+
+        $data = compact('form', 'entity', 'crudId', 'id');
+        $data = $this->beforeRender($data, self::$ROUTE_DELETE);
+        return $data;
     }
 
     /**
@@ -308,7 +329,10 @@ trait CrudControllerTrait
     {
         $item = $this->getEntityById($id);
         $crudId = static::getCrudId();
-        return compact('item', 'crudId');
+
+        $data = compact('item', 'crudId', 'id');
+        $data = $this->beforeRender($data, self::$ROUTE_SHOW);
+        return $data;
     }
 
 }
