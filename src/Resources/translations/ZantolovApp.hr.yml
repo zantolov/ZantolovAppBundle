@@ -4,6 +4,7 @@ crud:
   delete: 'Obriši'
   show: 'Prikaži'
   back: 'Natrag na listu'
+  confirm: 'Potvrdite akciju'
 
 sex:
   male: 'Muško'
