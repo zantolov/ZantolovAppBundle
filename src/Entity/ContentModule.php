@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Zantolov\AppBundle\Entity\Traits\ActivableTrait;
-
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity ()
@@ -29,15 +29,16 @@ class ContentModule
 
     /**
      * @var string
-     * @ORM\Column(type="text")
-     */
-    private $body;
-
-    /**
-     * @var string
      * @ORM\Column(type="string")
      */
     private $name;
+
+    /**
+     * @var string
+     * @ORM\Column(type="text")
+     * @Assert\NotBlank()
+     */
+    private $body;
 
     /**
      * @var boolean

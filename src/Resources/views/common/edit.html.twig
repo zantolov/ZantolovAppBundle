@@ -1,0 +1,16 @@
+{% extends '::app.html.twig' %}
+
+    {% block body -%}
+
+        <div class="col-md-12">
+            {% embed 'ZantolovAppBundle:CRUD/Template:crud-navigation-bar.html.twig' with {
+            id: id,
+            routePrefix: crudId,
+            ignoreLinks: ['edit']
+            } %}{% endembed %}
+
+            <div class="unsavedAlertForm">
+                {{ form(form) }}
+            </div>
+        </div>
+    {% endblock %}

@@ -2,122 +2,118 @@
 
 namespace Zantolov\AppBundle\Controller\CRUD;
 
-use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Zantolov\AppBundle\Controller\EntityCrudController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormInterface;
+use Zantolov\AppBundle\Controller\Traits\CrudControllerTrait;
+use Zantolov\AppBundle\Controller\Traits\EasyControllerTrait;
 use Zantolov\AppBundle\Entity\ContentModule;
 use Zantolov\AppBundle\Form\ContentModuleType;
 
-/**
- * @Route("/admin/content-module")
- */
-class ContentModuleController extends EntityCrudController
+class ContentModuleController extends Controller
 {
+    use EasyControllerTrait;
+    use CrudControllerTrait;
 
-    protected function getEntityClass()
+    protected $enabledFilters = array('category');
+
+    public static function getCrudId()
+    {
+        return 'app.content_module';
+    }
+
+    /**
+     * @return string
+     */
+    protected function getEntityName()
     {
         return 'ZantolovAppBundle:ContentModule';
     }
 
-
-    /**
-     * @Route("/", name="app.content-module")
-     * @Method("GET")
-     * @Template()
-     */
-    public function indexAction(Request $request)
+    protected function getNewEntity()
     {
-        return parent::baseIndexAction($request);
+        return new ContentModule();
+    }
+
+    protected function getCreateFormType()
+    {
+        throw new \Exception('DEPRECATED');
     }
 
     /**
-     * @Route("/", name="app.content-module.create")
-     * @Method("POST")
-     * @Template("ZantolovAppBundle:CRUD/ContentModule:new.html.twig")
+     * @return AbstractType
      */
-    public function createAction(Request $request)
+    protected function buildFormType($htmlEditor)
     {
-        return parent::baseCreateAction($request, new ContentModule(), 'app.content-module.show');
+        return new ContentModuleType($htmlEditor);
     }
 
     /**
-     * @param ContentModule $entity The entity
-     *
-     * @return \Symfony\Component\Form\Form The form
+     * @param null $entity
+     * @return Form
      */
-    public function createCreateForm($entity)
+    protected function getCreateForm($entity = null)
     {
-        return parent::createBaseCreateForm($entity, new ContentModuleType($entity->isEditor()), $this->generateUrl('app.content-module.create'));
+        if (is_null($entity)) {
+            $entity = $this->getNewEntity();
+        }
+
+        $formType = $this->buildFormType($entity->isEditor());
+
+        $form = $this->createForm(
+            $formType,
+            $entity,
+            [
+                'action' => $this->generateUrl($this->getRoutesConfig()[self::$ROUTE_CREATE]),
+                'method' => 'POST',
+            ]
+        );
+
+        $this->addSubmitButton($form, 'Create');
+
+        return $form;
     }
 
     /**
-     * @Route("/new", name="app.content-module.new")
-     * @Method("GET")
-     * @Template()
+     * @param $entity
+     * @return Form
      */
-    public function newAction()
+    protected function getEditForm($entity)
     {
-        return parent::baseNewAction(new ContentModule());
+
+        $formType = $this->buildFormType($entity->isEditor());
+
+        $form = $this->createForm(
+            $formType,
+            $entity,
+            [
+                'action' => $this->generateUrl($this->getRoutesConfig()[self::$ROUTE_UPDATE], ['id' => $entity->getId()]),
+                'method' => 'PUT',
+            ]
+        );
+
+        $this->addSubmitButton($form, 'Update');
+
+        return $form;
     }
 
     /**
-     * @Route("/{id}", name="app.content-module.show")
-     * @Method("GET")
-     * @Template()
+     * @param FormInterface $form
+     * @param string $text
+     * @return FormInterface
      */
-    public function showAction($id)
+    protected function addSubmitButton(FormInterface $form, $text = 'Submit')
     {
-        return parent::baseShowAction($id);
+        $form->add('submit', 'submit', [
+                'label' => $this->translate($text),
+                'attr'  => [
+                    'class' => 'btn btn-success btn-lg'
+                ]
+            ]
+        );
+        return $form;
     }
 
-    /**
-     * @Route("/{id}/edit", name="app.content-module.edit")
-     * @Method("GET")
-     * @Template()
-     */
-    public function editAction($id)
-    {
-        return parent::baseEditAction($id);
-    }
 
-    /**
-     * @param ContentModule $entity The entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    public function createEditForm($entity)
-    {
-        return parent::createBaseEditForm($entity, new ContentModuleType($entity->isEditor()), $this->generateUrl('app.content-module.update', array('id' => $entity->getId())));
-    }
-
-    /**
-     * @Route("/{id}", name="app.content-module.update")
-     * @Method("PUT")
-     * @Template("ZantolovAppBundle:CRUD/ContentModule:edit.html.twig")
-     */
-    public function updateAction(Request $request, $id)
-    {
-        return parent::baseUpdateAction($request, $id, $this->generateUrl('app.content-module.edit', array('id' => $id)));
-    }
-
-    /**
-     * @Route("/{id}", name="app.content-module.delete")
-     * @Method("DELETE")
-     */
-    public function deleteAction(Request $request, $id)
-    {
-        return parent::baseDeleteAction($request, $id, $this->generateUrl('app.content-module'));
-    }
-
-    /**
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    public function createDeleteForm($id)
-    {
-        return parent::baseCreateDeleteForm($this->generateUrl('app.content-module.delete', array('id' => $id)));
-    }
 }

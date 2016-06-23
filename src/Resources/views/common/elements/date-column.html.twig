@@ -1,0 +1,4 @@
+{% if date %}
+    <span class="hidden">{{ date|date('Ymd') }}</span>
+    {{ date|date(dateFormat|default('d.m.Y.')) }}
+{% endif %}

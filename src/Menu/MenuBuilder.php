@@ -42,7 +42,7 @@ class MenuBuilder extends ContainerAware
 
         $items = array();
 
-        $items[0]['modules'] = $this->factory->createItem('Modules', array('route' => 'app.content-module'))->setAttribute('icon', 'fa fa-plug');
+        $items[0]['modules'] = $this->factory->createItem('Modules', array('route' => 'app.content_module.index'))->setAttribute('icon', 'fa fa-plug');
         $items[1]['users'] = $this->factory->createItem('Users', array('route' => 'app.users'))->setAttribute('icon', 'fa fa-user');
 
 

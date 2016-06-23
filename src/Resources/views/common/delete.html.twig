@@ -1,0 +1,23 @@
+{% trans_default_domain "ZantolovApp" %}
+{% extends '::app.html.twig' %}
+
+    {% block body -%}
+        <p class="text-center">
+            <strong>{{ 'crud.confirm'|trans }}</strong>
+        </p>
+
+        <div class="text-center">
+            <ul class="list-inline">
+                <li>
+                    <a href="{{ url(crudId ~'.show', {id: entity.id}) }}" class="btn btn-primary">
+                        <i class="fa fa-arrow-left"></i> {{ 'crud.back'|trans }}
+                    </a>
+                </li>
+                <li>
+                    {{ form(form) }}
+                </li>
+            </ul>
+
+        </div>
+
+    {% endblock %}

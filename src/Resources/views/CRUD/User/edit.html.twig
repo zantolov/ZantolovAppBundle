@@ -1,27 +1,23 @@
 {% extends 'ZantolovAppBundle::baseAdmin.html.twig' %}
 
 {% block body -%}
-    {% embed 'ZantolovAppBundle:Admin/partials:crudHeader.html.twig'  with { ignoreTabs: ["filters"]} %}
-        {% block entityTitle %}
-            Content Module Edit
-        {% endblock %}
+    <div class="col-md-12">
         {% block actionPanel %}
             <ul class="list-inline">
                 <li>
-                    <a onclick="$('#zantolov_appbundle_contentmodule_submit').click();" href="javascript:void(0)"
+                    <a onclick="$('#zantolov_appbundle_user_submit').click();" href="javascript:void(0)"
                        class="btn btn-success btn-sm">
                         <i class="fa fa-check"></i> Update
                     </a>
                 </li>
                 <li>
-                    <a class="btn btn-primary btn-sm" href="{{ path('app.content-module') }}">
+                    <a class="btn btn-primary btn-sm" href="{{ path('app.users') }}">
                         <i class="fa fa-arrow-left"></i> Back to the list
                     </a>
                 </li>
                 <li>{{ form(delete_form) }}</li>
             </ul>
         {% endblock %}
-    {% endembed %}
-    {{ form(edit_form) }}
-
+        {{ form(edit_form) }}
+    </div>
 {% endblock %}

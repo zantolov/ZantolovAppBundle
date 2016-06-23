@@ -1,13 +1,7 @@
 {% extends 'ZantolovAppBundle::baseAdmin.html.twig' %}
 
     {% block body -%}
-
-        {% embed 'ZantolovAppBundle:Admin/partials:crudHeader.html.twig'  with { ignoreTabs: ["filters"]} %}
-
-            {% block entityTitle %}
-                User
-            {% endblock %}
-
+        <div class="col-md-12">
             {% block actionPanel %}
                 <ul class="list-inline">
                     <li>
@@ -25,27 +19,26 @@
                 </ul>
             {% endblock %}
 
-        {% endembed %}
+            <table class="table table-bordered">
+                <tbody>
+                <tr>
+                    <th class="col-sm-2">Id</th>
+                    <td>{{ entity.id }}</td>
+                </tr>
+                <tr>
+                    <th>Name</th>
+                    <td>{{ entity.username }}</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>{{ entity.email }}</td>
+                </tr>
+                <tr>
+                    <th>Enabled</th>
+                    <td>{{ entity.enabled|fontAwesome() }}</td>
+                </tr>
+                </tbody>
+            </table>
 
-        <table class="table table-bordered">
-            <tbody>
-            <tr>
-                <th class="col-sm-2">Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ entity.username }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ entity.email }}</td>
-            </tr>
-            <tr>
-                <th>Enabled</th>
-                <td>{{ entity.enabled|fontAwesome() }}</td>
-            </tr>
-            </tbody>
-        </table>
-
+        </div>
     {% endblock %}

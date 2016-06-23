@@ -2,48 +2,53 @@
     {% set ignoreTabs = {} %}
 {% endif %}
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="text-right">
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs" role="tablist">
-                <li class="crudTitleContainer">
-                    <h2 class="crudTitle">{% block entityTitle %}{% endblock %}</h2>
+<div class="col-md-12">
+
+    <h2 class="crudTitle">
+        {% block entityTitle %}{% endblock %}
+    </h2>
+
+
+    <div class="text-right">
+
+        <ul class="nav nav-tabs" role="tablist">
+            {% block tabNav %}
+
+                <li class="active">
+                    <a href="#actions" data-toggle="tab">
+                        {% trans %}Actions{% endtrans %}
+                    </a>
                 </li>
 
-                {% block tabNav %}
-                    <li class="active"><a href="#actions" data-toggle="tab">{% trans %}Actions{% endtrans %}</a></li>
+                {% if "filters" not in ignoreTabs %}
+                    <li class=""><a href="#filters" data-toggle="tab">{% trans %}Filters{% endtrans %}</a></li>
+                {% endif %}
 
-                    {% if "filters" not in ignoreTabs %}
-                        <li class=""><a href="#filters" data-toggle="tab">{% trans %}Filters{% endtrans %}</a></li>
-                    {% endif %}
-
-                    {% block additionalTabLinks %}{% endblock %}
+                {% block additionalTabLinks %}{% endblock %}
 
 
-                {% endblock %}
-            </ul>
-            <!-- /Nav tabs -->
+            {% endblock %}
+        </ul>
+        <!-- /Nav tabs -->
 
-            <!-- Tab panes -->
-            <div class="tab-content">
-                {% block tabPanels %}
-                    <div role="tabpanel" class="tab-pane active" id="actions">
-                        {% block actionPanel %}
+        <!-- Tab panes -->
+        <div class="tab-content">
+            {% block tabPanels %}
+                <div role="tabpanel" class="tab-pane active" id="actions">
+                    {% block actionPanel %}
+                    {% endblock %}
+                </div>
+                {% if "filters" not in ignoreTabs %}
+                    <div role="tabpanel" class="tab-pane" id="filters">
+                        {% block filterPanel %}
                         {% endblock %}
                     </div>
-                    {% if "filters" not in ignoreTabs %}
-                        <div role="tabpanel" class="tab-pane" id="filters">
-                            {% block filterPanel %}
-                            {% endblock %}
-                        </div>
-                    {% endif %}
+                {% endif %}
 
-                    {% block additionalTabs %}{% endblock %}
+                {% block additionalTabs %}{% endblock %}
 
-                {% endblock %}
-            </div>
-            <!-- /Tab panes -->
+            {% endblock %}
         </div>
+        <!-- /Tab panes -->
     </div>
 </div>
