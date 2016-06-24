@@ -12,7 +12,7 @@ use Zantolov\AppBundle\Entity\User;
 use Zantolov\AppBundle\Form\UserType;
 
 /**
- * @Route("/admin/users")
+ * @Route("/users")
  */
 class UserController extends EntityCrudController
 {
