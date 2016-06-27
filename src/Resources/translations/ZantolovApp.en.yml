@@ -4,6 +4,7 @@ crud:
   delete: 'Delete'
   show: 'Show'
   back: 'Back to list'
+  confirm: 'Confirm action'
 
 sex:
   male: 'Male'
