@@ -68,7 +68,7 @@ class UserController extends EntityCrudController
      */
     public function createCreateForm($entity)
     {
-        return parent::createBaseCreateForm($entity, new UserType(), $this->generateUrl('app.users.create'));
+        return parent::createBaseCreateForm($entity, $this->getUserType(), $this->generateUrl('app.users.create'));
     }
 
     /**
@@ -108,7 +108,7 @@ class UserController extends EntityCrudController
      */
     public function createEditForm($entity)
     {
-        return parent::createBaseEditForm($entity, new UserType(array('requiredPassword' => false)), $this->generateUrl('app.users.update', array('id' => $entity->getId())));
+        return parent::createBaseEditForm($entity, $this->getUserType(array('requiredPassword' => false)), $this->generateUrl('app.users.update', array('id' => $entity->getId())));
     }
 
     /**
@@ -157,5 +157,23 @@ class UserController extends EntityCrudController
     public function createDeleteForm($id)
     {
         return parent::baseCreateDeleteForm($this->generateUrl('app.users.delete', array('id' => $id)));
+    }
+
+    protected function getUserType($params = null)
+    {
+        if (is_null($params)) {
+            $type = new UserType();
+        } else {
+            $type = new UserType($params);
+        }
+
+        $roles = $this->getManager()->getRepository('ZantolovAppBundle:Role')->findAll();
+        $roleOptions = [];
+        foreach ($roles as $role) {
+            $roleOptions[$role->name] = $role->name;
+        }
+        $type->setRoles($roleOptions);
+
+        return $type;
     }
 }

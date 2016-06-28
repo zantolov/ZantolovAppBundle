@@ -17,6 +17,8 @@ class UserType extends AbstractType
 {
     private $params;
 
+    private $roles = [];
+
 
     public function __construct(array $params = array('requiredPassword' => true))
     {
@@ -30,12 +32,9 @@ class UserType extends AbstractType
             ->add('username')
             ->add('roles', 'choice', array(
                 'multiple' => true,
-                'choices'  => array(
-                    'ROLE_USER'  => 'ROLE_USER',
-                    'ROLE_ADMIN' => 'ROLE_ADMIN',
-                )
-            ))
-            ->add('email');
+                'choices'  => $this->getRoles()
+            ))->
+            add('email');
 
         if ($this->params['requiredPassword'] == false) {
             $builder->add('plainPassword', null, array('required' => false));
@@ -64,4 +63,38 @@ class UserType extends AbstractType
     {
         return 'zantolov_appbundle_user';
     }
+
+    /**
+     * @return array
+     */
+    public function getParams()
+    {
+        return $this->params;
+    }
+
+    /**
+     * @param array $params
+     */
+    public function setParams($params)
+    {
+        $this->params = $params;
+    }
+
+    /**
+     * @return array
+     */
+    public function getRoles()
+    {
+        return $this->roles;
+    }
+
+    /**
+     * @param array $roles
+     */
+    public function setRoles(array $roles)
+    {
+        $this->roles = $roles;
+    }
+
+
 }

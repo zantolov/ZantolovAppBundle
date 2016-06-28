@@ -1,6 +1,6 @@
 <?php
 
-namespace Zantolov\WebShopBundle\DataFixtures\ORM;
+namespace Zantolov\AppBundle\DataFixtures\ORM;
 
 use Zantolov\AppBundle\DataFixtures\ORM\AbstractDbFixture;
 use Zantolov\AppBundle\Entity\User;
@@ -37,7 +37,7 @@ class LoadUserData extends AbstractDbFixture
 
     public function getOrder()
     {
-        return 1;
+        return 100;
     }
 
 }
