@@ -9,8 +9,10 @@
             ignoreLinks: ['edit']
             } %}{% endembed %}
 
-            <div class="unsavedAlertForm">
-                {{ form(form) }}
+            <div class="crudForm editForm unsavedAlertForm">
+                {% block form %}
+                    {{ form(form) }}
+                {% endblock %}
             </div>
         </div>
     {% endblock %}

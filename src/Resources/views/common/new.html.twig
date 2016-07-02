@@ -8,6 +8,11 @@
             ignoreLinks: ['new']
             } %}{% endembed %}
 
-            {{ form(form) }}
+            <div class="crudForm newForm">
+                {% block form %}
+                    {{ form(form) }}
+                {% endblock %}
+            </div>
+
         </div>
     {% endblock %}

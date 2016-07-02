@@ -3,113 +3,110 @@
 namespace Zantolov\AppBundle\Controller\CRUD;
 
 use FOS\UserBundle\Doctrine\UserManager;
-use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Zantolov\AppBundle\Controller\EntityCrudController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\HttpFoundation\Request;
+use Zantolov\AppBundle\Controller\Traits\CrudControllerTrait;
+use Zantolov\AppBundle\Controller\Traits\EasyControllerTrait;
 use Zantolov\AppBundle\Entity\User;
 use Zantolov\AppBundle\Form\UserType;
 
 /**
  * @Route("/users")
  */
-class UserController extends EntityCrudController
+class UserController extends Controller
 {
 
-    protected function getEntityClass()
+    use EasyControllerTrait;
+    use CrudControllerTrait;
+
+    public static function getCrudId()
+    {
+        return 'app.user';
+    }
+
+
+    /**
+     * @return string
+     */
+    protected function getEntityName()
     {
         return 'ZantolovAppBundle:User';
     }
 
-
-    /**
-     * @Route("/", name="app.users")
-     * @Method("GET")
-     * @Template()
-     */
-    public function indexAction(Request $request)
-    {
-        return parent::baseIndexAction($request);
-    }
-
-    /**
-     * @Route("/", name="app.users.create")
-     * @Method("POST")
-     * @Template("ZantolovAppBundle:CRUD/User:new.html.twig")
-     */
-    public function createAction(Request $request)
+    protected function getNewEntity()
     {
         /** @var UserManager $userManager */
         $userManager = $this->get('fos_user.user_manager');
 
         /** @var User $entity */
         $entity = $userManager->createUser();
-        $form = $this->createCreateForm($entity)->handleRequest($request);
+        return $entity;
+    }
+
+    /**
+     * @return AbstractType
+     */
+    protected function getCreateFormType()
+    {
+        $params = ['requiredPassword' => true];
+        $formType = new UserType($params);
+        $formType->setRoles($this->getAvailableRolesOptions());
+        return $formType;
+    }
+
+    protected function getAvailableRolesOptions()
+    {
+        $roles = $this->getManager()->getRepository('ZantolovAppBundle:Role')->findAll();
+        $roleOptions = [];
+        foreach ($roles as $role) {
+            $roleOptions[$role->name] = $role->name;
+        }
+        return $roleOptions;
+    }
+
+    protected function getEditFormType()
+    {
+        $params = ['requiredPassword' => false];
+        $formType = new UserType($params);
+        $formType->setRoles($this->getAvailableRolesOptions());
+        return $formType;
+    }
+
+    /**
+     * @return UserManager
+     */
+    protected function getUserManager()
+    {
+        return $this->get('fos_user.user_manager');
+    }
+
+    /**
+     * @Template
+     */
+    public function createAction(Request $request)
+    {
+        $entity = $this->getNewEntity();
+        $form = $this->getCreateForm($entity)->handleRequest($request);
 
         if ($form->isValid()) {
-            $userManager->updateUser($entity);
-            $created = $this->translate('Created');
-            $this->get('session')->getFlashBag()->add('success', $created);
+            $this->getUserManager()->updateUser($entity);
+            $this->sessionFlash()->add('success', $this->translate('Created'));
 
-            return $this->redirect($this->generateUrl('app.users.show', array('id' => $entity->getId())));
+            return $this->redirectToRoute(static::getRoutesConfig()[static::$ROUTE_EDIT], ['id' => $entity->getId()]);
         }
 
-        return array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        );
+        $crudId = static::getCrudId();
+        $form = $form->createView();
+
+        $data = compact('form', 'crudId');
+        $data = $this->beforeRender($data, self::$ROUTE_CREATE);
+        return $data;
     }
 
-    /**
-     * @param User $entity The entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    public function createCreateForm($entity)
-    {
-        return parent::createBaseCreateForm($entity, $this->getUserType(), $this->generateUrl('app.users.create'));
-    }
-
-    /**
-     * @Route("/new", name="app.users.new")
-     * @Method("GET")
-     * @Template()
-     */
-    public function newAction()
-    {
-        return parent::baseNewAction(new User());
-    }
-
-    /**
-     * @Route("/{id}", name="app.users.show")
-     * @Method("GET")
-     * @Template()
-     */
-    public function showAction($id)
-    {
-        return parent::baseShowAction($id);
-    }
-
-    /**
-     * @Route("/{id}/edit", name="app.users.edit")
-     * @Method("GET")
-     * @Template()
-     */
-    public function editAction($id)
-    {
-        return parent::baseEditAction($id);
-    }
-
-    /**
-     * @param User $entity The entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    public function createEditForm($entity)
-    {
-        return parent::createBaseEditForm($entity, $this->getUserType(array('requiredPassword' => false)), $this->generateUrl('app.users.update', array('id' => $entity->getId())));
-    }
 
     /**
      * @Route("/{id}", name="app.users.update")
@@ -118,62 +115,21 @@ class UserController extends EntityCrudController
      */
     public function updateAction(Request $request, $id)
     {
-
-        $redirectUrl = $this->generateUrl('app.users.edit', array('id' => $id));
         $entity = $this->getEntityById($id);
-        $editForm = $this->createEditForm($entity)->handleRequest($request);
+        $form = $this->getEditForm($entity)->handleRequest($request);
 
-        /** @var UserManager $userManager */
-        $userManager = $this->get('fos_user.user_manager');
-
-        if ($editForm->isValid()) {
-            $userManager->updateUser($entity);
-            $updated = $this->translate('Updated');
-            $this->get('session')->getFlashBag()->add('success', $updated);
-            return $this->redirect($redirectUrl);
+        if ($form->isValid()) {
+            $this->getUserManager()->updateUser($entity);
+            $this->sessionFlash()->add('success', $this->translate('Updated'));
+            return $this->redirectToRoute(static::getRoutesConfig()[static::$ROUTE_EDIT], ['id' => $entity->getId()]);
         }
 
-        return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $this->createDeleteForm($id)->createView(),
-        );
+        $form = $form->createView();
+        $crudId = static::getCrudId();
+
+        $data = compact('form', 'crudId', 'id');
+        $data = $this->beforeRender($data, self::$ROUTE_UPDATE);
+        return $data;
     }
 
-    /**
-     * @Route("/{id}", name="app.users.delete")
-     * @Method("DELETE")
-     */
-    public function deleteAction(Request $request, $id)
-    {
-        return parent::baseDeleteAction($request, $id, $this->generateUrl('app.users'));
-    }
-
-    /**
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    public function createDeleteForm($id)
-    {
-        return parent::baseCreateDeleteForm($this->generateUrl('app.users.delete', array('id' => $id)));
-    }
-
-    protected function getUserType($params = null)
-    {
-        if (is_null($params)) {
-            $type = new UserType();
-        } else {
-            $type = new UserType($params);
-        }
-
-        $roles = $this->getManager()->getRepository('ZantolovAppBundle:Role')->findAll();
-        $roleOptions = [];
-        foreach ($roles as $role) {
-            $roleOptions[$role->name] = $role->name;
-        }
-        $type->setRoles($roleOptions);
-
-        return $type;
-    }
 }

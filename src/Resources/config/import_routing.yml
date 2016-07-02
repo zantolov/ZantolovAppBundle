@@ -26,3 +26,7 @@ fos_user_group:
 crud_content_modules:
     resource: "@ZantolovAppBundle/Resources/config/routing/content_modules.php"
     prefix:   /content_modules
+
+crud_users:
+    resource: "@ZantolovAppBundle/Resources/config/routing/users.php"
+    prefix:   /users

@@ -1,44 +1,36 @@
-{% extends 'ZantolovAppBundle::baseAdmin.html.twig' %}
+{% trans_default_domain "ZantolovApp" %}
+{% extends '::app.html.twig' %}
 
     {% block body -%}
+
         <div class="col-md-12">
-            {% block actionPanel %}
-                <ul class="list-inline">
-                    <li>
-                        <a class="btn btn-primary btn-sm" href="{{ path('app.users') }}">
-                            <i class="fa fa-arrow-left"></i> Back to the list
-                        </a>
-                    </li>
-                    <li>
-                        <a class="btn btn-primary btn-sm"
-                           href="{{ path('app.users.edit', { 'id': entity.id }) }}">
-                            <i class="fa fa-edit"></i> Edit
-                        </a>
-                    </li>
-                    <li>{{ form(delete_form) }}</li>
-                </ul>
-            {% endblock %}
+            {% embed 'ZantolovAppBundle:CRUD/Template:crud-navigation-bar.html.twig' with {
+            id: item.id,
+            routePrefix: crudId,
+            ignoreLinks: ['show']
+            } %}{% endembed %}
 
             <table class="table table-bordered">
                 <tbody>
                 <tr>
                     <th class="col-sm-2">Id</th>
-                    <td>{{ entity.id }}</td>
+                    <td>{{ item.id }}</td>
                 </tr>
                 <tr>
                     <th>Name</th>
-                    <td>{{ entity.username }}</td>
+                    <td>{{ item.username }}</td>
                 </tr>
                 <tr>
                     <th>Email</th>
-                    <td>{{ entity.email }}</td>
+                    <td>{{ item.email }}</td>
                 </tr>
                 <tr>
                     <th>Enabled</th>
-                    <td>{{ entity.enabled|fontAwesome() }}</td>
+                    <td>{{ item.enabled|fontAwesome() }}</td>
                 </tr>
                 </tbody>
             </table>
 
         </div>
+
     {% endblock %}
