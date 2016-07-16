@@ -1,0 +1,13 @@
+Entity Not Found: Entity not found
+Update: Update
+Updated: Updated
+Create: Create
+Created: Created
+Delete: Delete
+Deleted: Deleted
+Are you sure?: Are you sure?
+New: New
+
+crud:
+    confirm: Are you sure?
+    back: Go back

@@ -7,3 +7,7 @@ Delete: Obriši
 Deleted: Obrisano
 Are you sure?: Jeste li sigurni?
 New: Novo
+
+crud:
+    confirm: Jeste li sigurni?
+    back: Natrag
