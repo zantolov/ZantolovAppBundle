@@ -43,16 +43,6 @@
 
 {% block outerBody %}
 
-    {% if disableNavigation is not defined or disableNavigation == false %}
-        <div class="navbar navbar-default navbar-top">
-            <div class="container-fluid">
-                <div class="collapse navbar-collapse" id="admin-navbar-collapse-1">
-                    {{ knp_menu_render('main', {'currentClass': 'active', 'template': 'ZantolovAppBundle:Menu:knp_menu.html.twig'}) }}
-                </div>
-            </div>
-        </div>
-    {% endif %}
-
     <div class="container">
         {% include "ZantolovAppBundle::Layout/partials/flashNotifications.html.twig" with {} %}
     </div>

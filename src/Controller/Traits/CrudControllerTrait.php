@@ -4,7 +4,9 @@ namespace Zantolov\AppBundle\Controller\Traits;
 
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Form;
+use Symfony\Component\Form\SubmitButton;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
@@ -130,7 +132,7 @@ trait CrudControllerTrait
             ]
         );
 
-        $form->add('submit', 'submit', [
+        $form->add('save', SubmitType::class, [
                 'label' => $this->translate('Update'),
                 'attr'  => [
                     'class' => 'btn btn-success btn-lg'

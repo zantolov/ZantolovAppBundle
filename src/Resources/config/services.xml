@@ -48,16 +48,6 @@
             <tag name="twig.extension"/>
         </service>
 
-        <service id="zantolov.app.menu_builder" class="Zantolov\AppBundle\Menu\MenuBuilder">
-            <argument type="service" id="knp_menu.factory"/>
-        </service>
-
-        <service id="zantolov.app.main.menu" class="Knp\Menu\MenuItem">
-            <factory service="zantolov.app.menu_builder" method="createMainMenu"/>
-            <argument type="service" id="request_stack"/>
-            <tag name="knp_menu.menu" alias="main"/>
-        </service>
-
         <service id="zantolov.app.assets" class="Zantolov\AppBundle\Service\AssetsService">
         </service>
 

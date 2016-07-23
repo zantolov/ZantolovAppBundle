@@ -15,8 +15,6 @@ use Symfony\Component\DependencyInjection\Loader;
 class ZantolovAppExtension extends Extension
 {
 
-    private static $BUNDLE_DEPENDENCIES = ['FOSUserBundle', 'DoctrineMigrationsBundle', 'StofDoctrineExtensionsBundle'];
-
 
     /**
      * {@inheritdoc}
@@ -24,11 +22,6 @@ class ZantolovAppExtension extends Extension
     public function load(array $configs, ContainerBuilder $container)
     {
         $bundles = $container->getParameter('kernel.bundles');
-        foreach (self::$BUNDLE_DEPENDENCIES as $dependency) {
-            if (!isset($bundles[$dependency])) {
-                throw new \Exception('Bundle ' . $dependency . ' Must be loaded!');
-            }
-        }
 
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
